@@ -19,5 +19,5 @@ ShellRoot {
 
     Lockscreen {}
 
-    Test {}
+    // Test {}
 }
