@@ -12,7 +12,7 @@ Singleton {
     property var currentUnits
     property var daily
     property var dailyUnits
-    property bool mock: false
+    property bool mock: true
 
     function fetchWeather(latitude, longitude) {
         if (mock) {

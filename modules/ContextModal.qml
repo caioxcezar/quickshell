@@ -57,7 +57,7 @@ PanelWindow {
             Rectangle {
                 id: row
 
-                color: Colors.background
+                color: Colors.surface
                 radius: 10
 
                 width: 220
@@ -100,7 +100,7 @@ PanelWindow {
 
                         Rectangle {
                             width: parent.width
-                            color: "#888888"
+                            color: Colors.primary
                             height: 10
                             radius: 10
                             anchors.verticalCenter: parent.verticalCenter
