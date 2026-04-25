@@ -72,7 +72,16 @@ Item {
 
                     property var ws: Hypr.workspaces.find(w => w.id === idx)
                     property bool isActive: Hypr.focusedWorkspace?.id === idx
-                    property var toplevels: ws?.toplevels?.values?.filter(t => !t.lastIpcObject?.pinned && !t.lastIpcObject?.floating) ?? []
+                    property var toplevels: {
+                        const toplevels = ws?.toplevels?.values ?? [];
+                        const map = new Map();
+                        for (const toplevel of toplevels) {
+                            if (!map.has(toplevel.lastIpcObject.pid)) {
+                                map.set(toplevel.lastIpcObject.pid, toplevel);
+                            }
+                        }
+                        return Array.from(map.values());
+                    }
 
                     onIsActiveChanged: {
                         if (isActive) root.updateActive(wsItem, highlight);

@@ -39,6 +39,14 @@ Item {
                 }
             }
 
+            TapHandler {
+                acceptedButtons: Qt.LeftButton | Qt.RightButton
+                onTapped: {
+                    if (Pipewire.isOpen) Pipewire.closePanel();
+                    else Pipewire.openPanel();
+                }
+            }
+
             IconColored {
                 id: image
 

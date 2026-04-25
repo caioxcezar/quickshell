@@ -13,8 +13,9 @@ Singleton {
 
     Connections {
         function onRawEvent(event) {
-            if (event.name === "openwindow")
+            if (event.name === "openwindow") {
                 Hyprland.refreshToplevels();
+            }
 
         }
 

@@ -13,11 +13,13 @@ ShellRoot {
 
     NotificationModal {}
 
-    VolumeModal {}
+    ContextModal {}
 
     MusicPlayerModal {}
 
     Lockscreen {}
+
+    SoundModal {}
 
     // Test {}
 }
