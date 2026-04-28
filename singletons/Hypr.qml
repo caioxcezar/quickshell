@@ -1,7 +1,7 @@
+pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
-pragma Singleton
 
 Singleton {
     readonly property var workspaces: Hyprland.workspaces.values
@@ -13,13 +13,14 @@ Singleton {
 
     Connections {
         function onRawEvent(event) {
-            if (event.name === "openwindow") {
+            if (["monitorremoved", "monitoradded"].includes(event.name)) {
+                Hyprland.refreshMonitors();
+            } else if (["moveworkspace", "openwindow", "closewindow"].includes(event.name)) {
+                Hyprland.refreshWorkspaces();
                 Hyprland.refreshToplevels();
             }
-
         }
 
         target: Hyprland
     }
-
 }
