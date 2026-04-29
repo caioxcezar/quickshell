@@ -2,6 +2,7 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Io
+import qs.singletons
 import "../WmoCodes.js" as WmoCodes
 
 Singleton {
@@ -12,7 +13,7 @@ Singleton {
     property var currentUnits
     property var daily
     property var dailyUnits
-    property bool mock: false
+    property bool mock: Global.dev
 
     function fetchWeather(latitude, longitude) {
         if (mock) {

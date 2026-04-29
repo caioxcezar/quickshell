@@ -12,12 +12,12 @@ import qs.modules.bar
 ShellRoot {
     id: root
 
-    property bool firstBoot: false
+    property bool firstBoot: !Global.dev
 
     Timer {
-        interval: 1
+        interval: 500
         repeat: false
-        running: false
+        running: true
         onTriggered: {
             lock.locked = false;
             root.firstBoot = false;
@@ -36,7 +36,7 @@ ShellRoot {
     WlSessionLock {
         id: lock
 
-        locked: false
+        locked: !Global.dev
 
         WlSessionLockSurface {
             id: surface
