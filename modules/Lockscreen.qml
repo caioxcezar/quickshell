@@ -170,7 +170,8 @@ ShellRoot {
                                 pam.secret = passwordField.text;
                             }
                             Component.onCompleted: {
-                                passwordField.text = pam.secret;
+                                passwordField.text = "";
+                                pam.secret = "";
                                 passwordField.forceActiveFocus();
                             }
 
