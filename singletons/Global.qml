@@ -3,6 +3,7 @@ import QtQuick
 import Quickshell
 
 Singleton {
+    readonly property string compositor: "hyprland"
     readonly property bool dev: false
     readonly property int animationSpeed: 300
     readonly property int height: 40
