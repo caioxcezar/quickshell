@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Wayland
@@ -42,8 +43,23 @@ Scope {
                 color: Colors.background
                 radius: 5
 
-                Workspaces {
+                Loader {
                     id: workspaces
+                    readonly property Component hyprland: HyprWorkspaces {}
+                    readonly property Component niri: NiriWorkspaces {
+                        screen: panelWindow.modelData
+                    }
+
+                    height: parent.height
+
+                    sourceComponent: {
+                        switch (Global.compositor) {
+                        case "hyprland":
+                            return hyprland;
+                        case "niri":
+                            return niri;
+                        }
+                    }
                 }
 
                 Context {
