@@ -84,11 +84,8 @@ Item {
                     }
 
                     onIsActiveChanged: {
-                        if (isActive) root.updateActive(wsItem, highlight);
-                    }
-
-                    Component.onCompleted: {
-                        if (!isActive) root.updateActive(wsItem, highlight);
+                        if (isActive)
+                            Qt.callLater(() => root.updateActive(wsItem, highlight));
                     }
 
                     Rectangle {

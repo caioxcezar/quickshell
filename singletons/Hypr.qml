@@ -15,8 +15,11 @@ Singleton {
         function onRawEvent(event) {
             if (["monitorremoved", "monitoradded"].includes(event.name)) {
                 Hyprland.refreshMonitors();
-            } else if (["moveworkspace", "openwindow", "closewindow"].includes(event.name)) {
+            }
+            if (["moveworkspace", "destroyworkspace"].includes(event.name)) {
                 Hyprland.refreshWorkspaces();
+            }
+            if (["movewindow", "openwindow", "closewindow"].includes(event.name)) {
                 Hyprland.refreshToplevels();
             }
         }
