@@ -1,5 +1,4 @@
 pragma ComponentBehavior: Bound
-import Qt5Compat.GraphicalEffects
 import QtQuick
 import QtQuick.Layouts
 import Quickshell
@@ -20,9 +19,8 @@ Item {
 
         state: "Collapsed"
         color: Colors.surface
-        height: Global.height - 5
-        radius: 5
-        layer.enabled: true
+        height: Global.height
+        radius: Global.defaultRadius
         states: [
             State {
                 name: "ExpandedPanel"
@@ -68,45 +66,15 @@ Item {
 
                 PropertyChanges {
                     target: widget
-                    width: 270
-                    bottomRightRadius: 5
-                    bottomLeftRadius: 5
+                    width: 300
+                    bottomRightRadius: Global.defaultRadius
+                    bottomLeftRadius: Global.defaultRadius
                     actionPanel: false
                     actionNotification: false
                     actionMusic: false
                 }
             }
         ]
-
-        layer.effect: OpacityMask {
-            maskSource: Item {
-                anchors.centerIn: parent
-                width: widget.width
-                height: widget.height
-
-                RowLayout {
-                    height: parent.height
-                    width: parent.width - 10
-                    anchors.centerIn: parent
-                    Rectangle {
-                        radius: 10
-                        Layout.alignment: Qt.AlignLeft | Qt.AlignVCenter
-                        width: Global.iconContainer
-                        height: Global.iconContainer
-                        color: "black"
-                    }
-
-                    Rectangle {
-                        radius: 10
-                        Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-                        width: Global.iconContainer
-                        height: Global.iconContainer
-                        color: "black"
-                    }
-                }
-            }
-            invert: true
-        }
 
         transitions: Transition {
             onRunningChanged: {
@@ -147,9 +115,11 @@ Item {
             IconColored {
                 id: music
                 source: Quickshell.iconPath(Mpris.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
-                iconColor: Colors.surface
+                iconColor: Colors.font
                 Layout.alignment: Qt.AlignLeft
                 anchors.centerIn: parent
+                width: Global.iconSize
+                height: Global.iconSize
 
                 TapHandler {
                     acceptedButtons: Qt.LeftButton
@@ -194,8 +164,8 @@ Item {
                 Icon {
                     anchors.centerIn: parent
                     source: Quickshell.iconPath(weather.current.icon ?? "")
-                    width: Global.iconContainer
-                    height: Global.iconContainer
+                    width: 48
+                    height: 48
                 }
 
                 Text {
@@ -203,6 +173,7 @@ Item {
                     text: `${weather.current.temperature || ""}${weather.units.temperature || ""}`
                     color: Colors.font
                     style: Text.Outline
+
                     font.pointSize: Global.fontSize
                 }
             }
@@ -234,7 +205,7 @@ Item {
             IconColored {
                 id: notif
                 source: Quickshell.iconPath(Notifications.isMuted ? "notifications-disabled-symbolic" : "notifications-symbolic")
-                iconColor: Colors.surface
+                iconColor: Colors.font
                 anchors.centerIn: parent
             }
 

@@ -21,7 +21,7 @@ PanelWindow {
     implicitHeight: 0
     color: "transparent"
     // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height
+    margins.top: Global.height + Global.marginBar
     // qmllint enable unqualified unresolved-type missing-property
     Component.onCompleted: {
         Panel.modal = root;
@@ -55,8 +55,8 @@ PanelWindow {
 
         anchors.fill: parent
         color: Colors.background
-        bottomRightRadius: 10
-        bottomLeftRadius: 10
+        bottomRightRadius: Global.defaultRadius
+        bottomLeftRadius: Global.defaultRadius
 
         Loader {
             active: root.contentActive
@@ -80,7 +80,7 @@ PanelWindow {
 
                             Rectangle {
                                 anchors.fill: parent
-                                radius: 5
+                                radius: Global.defaultRadius
                                 color: Colors.surface
                                 clip: true
                                 anchors.topMargin: 5
@@ -95,17 +95,17 @@ PanelWindow {
 
                         Item {
                             Layout.fillWidth: true
-                            height: 120
-
+                            Layout.preferredHeight: weatherView.implicitHeight + 15
                             Rectangle {
                                 anchors.fill: parent
-                                radius: 5
+                                radius: Global.defaultRadius
                                 color: Colors.surface
                                 clip: true
                                 anchors.bottomMargin: 5
                                 anchors.leftMargin: 5
 
                                 WeatherView {
+                                    id: weatherView
                                     anchors.margins: 5
                                     anchors.fill: parent
                                 }

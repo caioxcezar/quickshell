@@ -22,9 +22,9 @@ Scope {
 
             // qmllint disable unqualified unresolved-type missing-property
             margins {
-                top: 5
-                left: 5
-                right: 5
+                top: Global.marginBar
+                left: Global.marginBar
+                right: Global.marginBar
             }
             // qmllint enable unqualified unresolved-type missing-property
 
@@ -41,7 +41,7 @@ Scope {
             Rectangle {
                 anchors.fill: parent
                 color: Colors.background
-                radius: 5
+                radius: 15
 
                 Loader {
                     id: workspaces

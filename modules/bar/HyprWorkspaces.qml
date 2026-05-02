@@ -2,12 +2,11 @@ pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
-import Qt5Compat.GraphicalEffects
 import qs.singletons
 
 Item {
     id: root
-    width: content.width + 5
+    width: content.width
     height: parent.height
 
     property real activeX: 0
@@ -18,40 +17,32 @@ Item {
     Rectangle {
         id: rectangle
         width: content.width
-        height: parent.height - 5
+        height: parent.height
         anchors.centerIn: parent
         color: Colors.surface
-        radius: 5
-        layer.enabled: true
-        layer.effect: OpacityMask {
-            maskSource: Item {
-                width: rectangle.width
-                height: rectangle.height
+        topLeftRadius: Global.defaultRadius
+        bottomLeftRadius: Global.defaultRadius
+        Rectangle {
+            radius: Global.defaultRadius
+            x: root.activeX
+            y: root.activeY
+            width: root.activeWidth
+            height: root.activeHeight
+            color: Colors.primary
 
-                Rectangle {
-                    radius: 10
-                    x: root.activeX
-                    y: root.activeY
-                    width: root.activeWidth
-                    height: root.activeHeight
-                    color: "black"
-
-                    Behavior on x {
-                        NumberAnimation {
-                            duration: Global.animationSpeed
-                        }
-                    }
+            Behavior on x {
+                NumberAnimation {
+                    duration: Global.animationSpeed
                 }
             }
-            invert: true
         }
     }
 
     Item {
         id: content
         anchors.centerIn: parent
-        width: row.width + 10
-        height: parent.height - 5
+        width: row.width + Global.defaultRadius
+        height: parent.height
 
         Row {
             id: row
@@ -66,7 +57,7 @@ Item {
 
                     required property int index
 
-                    width: Math.max(Global.iconContainer, icons.width + 10)
+                    width: Math.max(Global.iconContainer, icons.width + Global.defaultRadius)
                     height: Global.iconContainer
                     property int idx: index + 1
 

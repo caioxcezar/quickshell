@@ -18,7 +18,7 @@ ListView {
         width: root.width - 10
         height: content.implicitHeight + 10
         color: Colors.surface
-        radius: 6
+        radius: Global.defaultRadius
         anchors.horizontalCenter: parent.horizontalCenter
 
         PlayerView {

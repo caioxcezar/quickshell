@@ -11,9 +11,14 @@ Item {
     property var currentUnits: Weather.currentUnits ?? new Object()
     property var dailyUnits: Weather.dailyUnits ?? new Object()
 
+    implicitHeight: content.implicitHeight
+
     Column {
+        id: content
         Row {
+            width: parent.width
             Icon {
+                anchors.verticalCenter: parent.verticalCenter
                 source: Quickshell.iconPath(root.current.icon ?? "")
                 width: 48
                 height: 48
@@ -22,6 +27,10 @@ Item {
             Column {
                 Text {
                     text: root.current.wmo
+                    elide: Text.ElideRight
+                    maximumLineCount: 2
+                    wrapMode: Text.WordWrap
+                    width: parent.width
                     color: Colors.font
                     font.pointSize: Global.fontSize
                     font.bold: true
@@ -48,24 +57,24 @@ Item {
                 model: Weather.daily
 
                 Column {
-                    id: content
+                    id: weatherList
                     required property var modelData
 
                     Icon {
-                        source: Quickshell.iconPath(content.modelData.icon ?? "")
+                        source: Quickshell.iconPath(weatherList.modelData.icon ?? "")
                         width: 24
                         height: 24
                     }
 
                     Column {
                         Text {
-                            text: `${content.modelData.temperature2mMin}${root.dailyUnits.temperature2mMin}`
+                            text: `${weatherList.modelData.temperature2mMin}${root.dailyUnits.temperature2mMin}`
                             color: Colors.font
                             font.pointSize: Global.fontSmall
                         }
 
                         Text {
-                            text: `${content.modelData.temperature2mMax}${root.dailyUnits.temperature2mMax}`
+                            text: `${weatherList.modelData.temperature2mMax}${root.dailyUnits.temperature2mMax}`
                             color: Colors.font
                             font.pointSize: Global.fontSmall
                         }

@@ -18,7 +18,7 @@ PanelWindow {
     implicitHeight: 0
     color: "transparent"
     // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height
+    margins.top: Global.height + Global.marginBar
     // qmllint enable unqualified unresolved-type missing-property
 
     Component.onCompleted: {
