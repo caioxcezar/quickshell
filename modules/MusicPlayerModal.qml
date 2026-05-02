@@ -18,7 +18,7 @@ PanelWindow {
     implicitHeight: 0
     color: "transparent"
     // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height
+    margins.top: Global.height + Global.marginBar
     // qmllint enable unqualified unresolved-type missing-property
 
     Component.onCompleted: {
@@ -55,8 +55,8 @@ PanelWindow {
         sourceComponent: Rectangle {
             anchors.fill: parent
             color: Colors.background
-            bottomRightRadius: 10
-            bottomLeftRadius: 10
+            bottomRightRadius: Global.defaultRadius
+            bottomLeftRadius: Global.defaultRadius
 
             PlayerList {
                 opacity: root.contentOpacity

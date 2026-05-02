@@ -15,7 +15,7 @@ ListView {
         width: root.width
         height: content.implicitHeight + 16
         color: Colors.surface
-        radius: 6
+        radius: Global.defaultRadius
 
         TapHandler {
             acceptedButtons: Qt.LeftButton

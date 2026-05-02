@@ -21,7 +21,7 @@ PanelWindow {
     implicitHeight: 300
     color: "transparent"
     // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height + 10
+    margins.top: Global.height + Global.marginBar + 5
     // qmllint enable unqualified unresolved-type missing-property
 
     Component.onCompleted: {
@@ -55,8 +55,8 @@ PanelWindow {
         anchors.fill: parent
         clip: true
         color: Colors.background
-        topLeftRadius: 10
-        bottomLeftRadius: 10
+        topLeftRadius: Global.defaultRadius
+        bottomLeftRadius: Global.defaultRadius
 
         Loader {
             active: root.contentActive
@@ -73,7 +73,7 @@ PanelWindow {
                     color: Colors.surface
                     Layout.fillWidth: true
                     height: outputDefault.height + 10
-                    radius: 5
+                    radius: Global.defaultRadius
 
                     Column {
                         id: outputDefault
@@ -141,7 +141,7 @@ PanelWindow {
                                 }
 
                                 background: Rectangle {
-                                    radius: 6
+                                    radius: Global.defaultRadius
                                     color: Colors.background
                                 }
                             }
@@ -160,7 +160,7 @@ PanelWindow {
                                 }
                                 background: Rectangle {
                                     color: itemDelegate.highlighted ? Colors.surface : "transparent"
-                                    radius: 4
+                                    radius: Global.defaultRadius
                                 }
                             }
                         }
@@ -192,14 +192,14 @@ PanelWindow {
                                         width: parent.width - 10
                                         color: Colors.primary
                                         height: 10
-                                        radius: 10
+                                        radius: Global.defaultRadius
                                         anchors.verticalCenter: parent.verticalCenter
 
                                         Rectangle {
                                             width: parent.width * Pipewire.output.audio.volume
                                             color: Colors.font
                                             height: 10
-                                            radius: 10
+                                            radius: Global.defaultRadius
                                             anchors.left: parent.left
                                             anchors.verticalCenter: parent.verticalCenter
 
@@ -230,7 +230,7 @@ PanelWindow {
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    radius: 5
+                    radius: Global.defaultRadius
 
                     ColumnLayout {
                         width: parent.width - 10
@@ -269,6 +269,8 @@ PanelWindow {
                                             icon = "steam";
                                         else if (binary.includes("discordcanery"))
                                             icon = "discord-canery";
+                                        else if (icon.includes("zen"))
+                                            icon = "app.zen_browser.zen";
 
                                         return Quickshell.iconPath(icon, "image-missing");
                                     }
@@ -297,14 +299,14 @@ PanelWindow {
                                         width: parent.width - 10
                                         color: Colors.primary
                                         height: 10
-                                        radius: 10
+                                        radius: Global.defaultRadius
                                         anchors.verticalCenter: parent.verticalCenter
 
                                         Rectangle {
                                             width: parent.width * item.modelData.audio.volume
                                             color: Colors.font
                                             height: 10
-                                            radius: 10
+                                            radius: Global.defaultRadius
                                             anchors.left: parent.left
                                             anchors.verticalCenter: parent.verticalCenter
 

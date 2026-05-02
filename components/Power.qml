@@ -9,8 +9,10 @@ Item {
 
     IconColored {
         source: Quickshell.iconPath("system-shutdown-symbolic")
-        iconColor: Colors.surface
+        iconColor: Colors.font
         anchors.centerIn: parent
+        width: Global.iconSize
+        height: Global.iconSize
     }
 
     TapHandler {
