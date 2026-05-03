@@ -17,11 +17,6 @@ ListView {
         color: Colors.surface
         radius: 6
 
-        TapHandler {
-            acceptedButtons: Qt.LeftButton
-            onTapped: rect.modelData.dismiss()
-        }
-
         NotificationView {
             id: content
 

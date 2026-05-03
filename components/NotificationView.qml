@@ -10,9 +10,13 @@ Column {
 
     required property var notification
     property string fontColor: Colors.font
-    property var actions: notification.actions ?? []
+    property var actions: []
+    property var action: null
 
-    spacing: 6
+    function isDefault(action) {
+        const text = (action.text || "").trim().toLowerCase();
+        return !text || text === "default";
+    }
 
     anchors {
         left: parent.left
@@ -21,8 +25,25 @@ Column {
         margins: 8
     }
 
-    Row {
+    Component.onCompleted: {
+        const actions = notification.actions ?? [];
+
+        for (const action of actions) {
+            if (isDefault(action))
+                root.action = action;
+            else
+                root.actions.push(action);
+        }
+    }
+
+    TapHandler {
+        acceptedButtons: Qt.LeftButton
+        onTapped: root.action?.invoke()
+    }
+
+    Item {
         width: parent.width
+        height: 18
 
         IconImage {
             id: notifIcon
@@ -30,8 +51,25 @@ Column {
             anchors.verticalCenter: parent.verticalCenter
             width: 12
             height: 12
-            source: root.notification.appIcon || Quickshell.iconPath(root.notification.appName.toLowerCase(), true)
+            source: Quickshell.iconPath(root.notification.desktopEntry, true)
             visible: status === Image.Ready
+        }
+
+        IconRounded {
+            id: closeIcon
+
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.right: parent.right
+            width: parent.height
+            height: parent.height
+            iconSize: 12
+            iconSource: Quickshell.iconPath("view-close", true)
+            iconColor: Colors.font
+
+            TapHandler {
+                acceptedButtons: Qt.LeftButton
+                onTapped: root.notification.dismiss()
+            }
         }
     }
 
