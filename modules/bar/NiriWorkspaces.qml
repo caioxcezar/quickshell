@@ -43,7 +43,7 @@ Item {
     Item {
         id: content
         anchors.centerIn: parent
-        width: row.width
+        width: row.width + Global.defaultRadius
         height: parent.height
 
         Row {
