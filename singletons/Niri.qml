@@ -50,7 +50,6 @@ Singleton {
         parser: SplitParser {
             onRead: data => {
                 const line = data.toString().trim();
-                // console.log(">>>", line);
                 if (!line)
                     return;
 
@@ -62,7 +61,8 @@ Singleton {
                         root._workspaces[ws.id] = ws;
                 }
                 if (json.WindowsChanged) {
-                    root._toplevels = json.WindowsChanged.windows;
+                    for (const window of json.WindowsChanged.windows)
+                        root._toplevels[window.id] = window;
                 }
                 if (json.WorkspaceActivated) {
                     const {
@@ -86,6 +86,7 @@ Singleton {
                     const {
                         window
                     } = json.WindowOpenedOrChanged;
+
                     root._toplevels[window.id] = window;
                 }
 
