@@ -37,7 +37,7 @@ Scope {
                 anchors.centerIn: parent
 
                 Repeater {
-                    model: Global.powerCommands
+                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
 
                     IconRounded {
                         id: icon
