@@ -31,7 +31,14 @@ Singleton {
         {
             "title": "Log-out",
             "icon": "system-log-out-symbolic",
+            "for": "hyprland",
             "command": ["hyprctl", "dispatch", "exit"]
+        },
+        {
+            "title": "Log-out",
+            "icon": "system-log-out-symbolic",
+            "for": "niri",
+            "command": ["niri", "msg", "action", "quit"]
         }
     ]
 }
