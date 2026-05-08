@@ -5,7 +5,6 @@ import Quickshell.Hyprland
 
 Singleton {
     readonly property var workspaces: Hyprland.workspaces.values
-    readonly property var focusedWorkspace: Hyprland.focusedWorkspace
 
     function goToWorspace(id) {
         Hyprland.dispatch("workspace " + id);
@@ -13,14 +12,20 @@ Singleton {
 
     Connections {
         function onRawEvent(event) {
-            if (["monitorremoved", "monitoradded"].includes(event.name)) {
+            switch (event.name) {
+            case "monitorremoved":
+            case "monitoradded":
                 Hyprland.refreshMonitors();
-            }
-            if (["moveworkspace", "destroyworkspace"].includes(event.name)) {
+                break;
+            case "moveworkspace":
+            case "destroyworkspace":
                 Hyprland.refreshWorkspaces();
-            }
-            if (["movewindow", "openwindow", "closewindow"].includes(event.name)) {
+                break;
+            case "movewindow":
+            case "openwindow":
+            case "closewindow":
                 Hyprland.refreshToplevels();
+                break;
             }
         }
 
