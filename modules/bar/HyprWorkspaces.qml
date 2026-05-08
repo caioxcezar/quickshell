@@ -62,7 +62,7 @@ Item {
                     property int idx: index + 1
 
                     property var ws: Hypr.workspaces.find(w => w.id === idx)
-                    property bool isActive: Hypr.focusedWorkspace?.id === idx
+                    property bool isActive: Boolean(ws?.focused)
                     property var toplevels: {
                         const toplevels = ws?.toplevels?.values ?? [];
                         const map = new Map();

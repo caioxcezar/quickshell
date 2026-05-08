@@ -12,7 +12,7 @@ ListView {
     orientation: ListView.Vertical
     highlightRangeMode: ListView.StrictlyEnforceRange
     Component.onCompleted: {
-        currentIndex = Time.month;
+        Qt.callLater(() => root.positionViewAtIndex(Time.month, ListView.Beginning));
     }
 
     model: CalendarModel {
@@ -60,15 +60,30 @@ ListView {
             year: item.modelData.year
             locale: Qt.locale()
 
-            delegate: Text {
+            delegate: Item {
                 required property var model
 
-                horizontalAlignment: Text.AlignHCenter
-                verticalAlignment: Text.AlignVCenter
-                opacity: model.month === grid.month ? 1 : 0
-                text: grid.locale.toString(model.date, "d")
-                font.pointSize: Global.fontSize
-                color: model.today ? Colors.error : Colors.font
+                implicitWidth: dayText.implicitWidth
+                implicitHeight: dayText.implicitHeight
+
+                Rectangle {
+                    anchors.centerIn: parent
+                    width: Math.min(parent.width, parent.height)
+                    height: width
+                    radius: width / 2
+                    color: parent.model.today ? Colors.error : "transparent"
+                }
+
+                Text {
+                    id: dayText
+                    anchors.centerIn: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    opacity: parent.model.month === grid.month ? 1 : 0
+                    text: grid.locale.toString(parent.model.date, "d")
+                    font.pointSize: Global.fontSize
+                    color: Colors.font
+                }
             }
         }
     }
