@@ -1,15 +1,17 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import qs.components
 import qs.singletons
 
-// qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
+
+    required property int animationSpeed
 
     property var output: Pipewire.output
     property real volume: output?.audio.volume ?? 0
+
+    visible: Global.contextVisibility
 
     function delay(ms, callback) {
         delayTimer.interval = ms;
@@ -19,29 +21,20 @@ PanelWindow {
 
     Connections {
         function onVolumeChanged() {
-            root.visible = true;
+            Global.contextVisibility = true;
             delayTimer.stop();
             root.delay(1500, () => {
-                root.visible = false;
+                Global.contextVisibility = false;
             });
         }
 
         target: root
     }
 
-    visible: false
-    exclusiveZone: -1
     implicitHeight: 50
-    // qmllint disable unqualified unresolved-type missing-property
-    margins.bottom: 150
-    // qmllint enable unqualified unresolved-type missing-property
-    color: "transparent"
-
-    anchors {
-        bottom: true
-        left: true
-        right: true
-    }
+    anchors.horizontalCenter: parent.horizontalCenter
+    anchors.bottom: parent.bottom
+    anchors.bottomMargin: 150
 
     Loader {
         active: root.visible
@@ -115,7 +108,7 @@ PanelWindow {
 
                                 Behavior on width {
                                     NumberAnimation {
-                                        duration: Global.animationSpeed / 2
+                                        duration: root.animationSpeed
                                     }
                                 }
                             }
@@ -132,6 +125,4 @@ PanelWindow {
         repeat: false
         onTriggered: triggered.disconnect(triggered)
     }
-
-    mask: Region {}
 }

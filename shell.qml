@@ -9,17 +9,10 @@ ShellRoot {
 
     PowerMenu {}
 
-    PanelModal {}
-
-    NotificationModal {}
-
-    ContextModal {}
-
-    MusicPlayerModal {}
-
     Lockscreen {}
 
-    SoundModal {}
+    Overlay {}
 
     // Test {}
+
 }

@@ -17,6 +17,7 @@ Singleton {
     readonly property int marginBar: 5
     readonly property int defaultRadius: 10
     property bool powerVisibility: false
+    property bool contextVisibility: false
     readonly property var powerCommands: [
         {
             "title": "Shutdown",
