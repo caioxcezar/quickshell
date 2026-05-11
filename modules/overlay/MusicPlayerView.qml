@@ -1,25 +1,19 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import qs.components
 import qs.singletons
 
 // qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
 
     property int contentOpacity: 0
-    property int animationSpeed: Global.animationSpeed / 2
+    required property int animationSpeed
 
-    anchors.top: true
     visible: false
-    exclusiveZone: -1
     implicitWidth: 300
     implicitHeight: 0
-    color: "transparent"
-    // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height + Global.marginBar
-    // qmllint enable unqualified unresolved-type missing-property
+    anchors.horizontalCenter: parent.horizontalCenter
 
     Component.onCompleted: {
         MusicPlayer.modal = root;

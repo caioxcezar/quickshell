@@ -1,28 +1,19 @@
-pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Wayland
-import qs.components
 import qs.singletons
+import qs.components
 
-// qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
 
+    required property int animationSpeed
     property bool contentActive: false
-    property int animationSpeed: Global.animationSpeed / 2
-
-    WlrLayershell.namespace: "quickshell:panel"
-    anchors.top: true
     visible: false
-    exclusiveZone: -1
+
     implicitWidth: 612
     implicitHeight: 0
-    color: "transparent"
-    // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height + Global.marginBar
-    // qmllint enable unqualified unresolved-type missing-property
+    anchors.horizontalCenter: parent.horizontalCenter
+
     Component.onCompleted: {
         Panel.modal = root;
         Panel.animation = animation;
@@ -51,10 +42,8 @@ PanelWindow {
     }
 
     Rectangle {
-        id: contentRect
-
-        anchors.fill: parent
         color: Colors.background
+        anchors.fill: parent
         bottomRightRadius: Global.defaultRadius
         bottomLeftRadius: Global.defaultRadius
 

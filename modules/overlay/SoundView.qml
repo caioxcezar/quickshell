@@ -7,22 +7,19 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 // qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
 
     property bool contentActive: false
-    property int animationSpeed: Global.animationSpeed / 2
+    required property int animationSpeed
 
-    anchors.top: true
-    anchors.right: true
     visible: false
-    exclusiveZone: -1
     implicitWidth: 0
     implicitHeight: 300
-    color: "transparent"
-    // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height + Global.marginBar + 5
-    // qmllint enable unqualified unresolved-type missing-property
+
+    anchors.right: parent.right
+    anchors.top: parent.top
+    anchors.topMargin: Global.marginBar
 
     Component.onCompleted: {
         Pipewire.modal = root;
@@ -239,7 +236,8 @@ PanelWindow {
 
                         Text {
                             text: "Applications"
-                            anchors.horizontalCenter: parent.horizontalCenter
+                            Layout.alignment: Qt.AlignHCenter
+
                             color: Colors.font
                             font.pointSize: Global.fontSize
                             font.bold: true

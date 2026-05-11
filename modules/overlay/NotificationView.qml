@@ -4,22 +4,16 @@ import Quickshell
 import qs.components
 import qs.singletons
 
-// qmllint disable uncreatable-type
-PanelWindow {
+Item {
     id: root
 
+    required property int animationSpeed
     property int contentOpacity: 0
-    property int animationSpeed: Global.animationSpeed / 2
 
-    anchors.top: true
-    visible: true
-    exclusiveZone: -1
+    visible: false
     implicitWidth: 300
     implicitHeight: 0
-    color: "transparent"
-    // qmllint disable unqualified unresolved-type missing-property
-    margins.top: Global.height + Global.marginBar
-    // qmllint enable unqualified unresolved-type missing-property
+    anchors.horizontalCenter: parent.horizontalCenter
 
     Component.onCompleted: {
         Notification.modal = root;
