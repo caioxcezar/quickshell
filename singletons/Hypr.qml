@@ -2,12 +2,21 @@ pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Hyprland
+import Quickshell.Io
 
 Singleton {
     readonly property var workspaces: Hyprland.workspaces.values
 
     function goToWorspace(id) {
-        Hyprland.dispatch("workspace " + id);
+        process.command = ["hyprctl", "dispatch", `hl.dsp.focus({ workspace = "${id}" })`];
+        process.running = true;
+    }
+
+    Process {
+        id: process
+
+        running: false
+        command: []
     }
 
     Connections {
