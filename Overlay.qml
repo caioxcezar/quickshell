@@ -47,6 +47,7 @@ PanelWindow {
     }
 
     TapHandler {
+        gesturePolicy: TapHandler.WithinBounds
         onTapped: {
             if (Panel.isOpen)
                 Panel.closePanel();
