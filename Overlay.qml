@@ -46,9 +46,10 @@ PanelWindow {
         animationSpeed: root.animationSpeed
     }
 
-    TapHandler {
-        gesturePolicy: TapHandler.WithinBounds
-        onTapped: {
+    MouseArea {
+        anchors.fill: parent
+        z: -1
+        onClicked: {
             if (Panel.isOpen)
                 Panel.closePanel();
             if (MusicPlayer.isOpen)
