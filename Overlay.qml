@@ -56,13 +56,11 @@ PanelWindow {
                 MusicPlayer.closePanel();
             if (Pipewire.isOpen)
                 Pipewire.closePanel();
-            if (Notification.isOpen)
-                Notification.closePanel();
         }
     }
 
     Region {
         id: region
     }
-    mask: Global.contextVisibility ? region : null
+    mask: Global.contextVisibility || Notification.isOpen ? region : null
 }
