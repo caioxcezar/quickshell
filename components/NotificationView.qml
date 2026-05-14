@@ -122,6 +122,8 @@ Column {
 
             Text {
                 text: root.notification.body
+                elide: Text.ElideRight
+                maximumLineCount: 3
                 color: root.fontColor
                 wrapMode: Text.WordWrap
                 width: parent.width
