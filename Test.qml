@@ -1,5 +1,8 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
+import Quickshell.Io
+import QtQuick.Layouts
 import QtQuick.Controls
 import qs.singletons
 import qs.components
@@ -23,10 +26,9 @@ PanelWindow {
         anchors.fill: parent
         color: Colors.background
 
-        Rectangle {
+        ColumnLayout {
             width: tray.width
-            height: Global.height
-            color: "transparent"
+            height: parent.height
             anchors {
                 top: parent.top
                 right: parent.right
@@ -36,7 +38,62 @@ PanelWindow {
             RightBar {
                 id: tray
                 window: root
-                anchors.right: parent.right
+                height: Global.height
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+            }
+
+            Column {
+                id: powerMenu
+                opacity: Global.powerVisibility && Idle.isLocked ? 1 : 0
+                Layout.fillWidth: true
+                Layout.fillHeight: true
+                spacing: 10
+
+                Repeater {
+                    width: parent.width
+                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
+
+                    Column {
+                        id: item
+                        width: parent.width
+                        required property var modelData
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            text: item.modelData.title
+                            color: Colors.font
+                            font.pointSize: Global.fontTitle
+                            font.bold: true
+                        }
+                        Icon {
+                            anchors.horizontalCenter: parent.horizontalCenter
+
+                            source: Quickshell.iconPath(item.modelData.icon)
+                            width: 96
+                            height: 96
+
+                            TapHandler {
+                                acceptedButtons: Qt.LeftButton
+                                onTapped: {
+                                    if (powerMenu.opacity)
+                                        process.running = true;
+                                }
+                            }
+
+                            Process {
+                                id: process
+
+                                running: false
+                                command: item.modelData.command
+                            }
+                        }
+                    }
+                }
+
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Global.animationSpeed
+                    }
+                }
             }
         }
 
