@@ -21,23 +21,28 @@ Singleton {
     readonly property var powerCommands: [
         {
             "title": "Shutdown",
-            "icon": "system-shutdown-symbolic",
+            "icon": "system-shutdown",
             "command": ["systemctl", "poweroff"]
         },
         {
             "title": "Reboot",
-            "icon": "system-reboot-symbolic",
+            "icon": "system-reboot",
             "command": ["systemctl", "reboot"]
         },
         {
+            "title": "Suspend",
+            "icon": "system-suspend",
+            "command": ["systemctl", "suspend"]
+        },
+        {
             "title": "Log-out",
-            "icon": "system-log-out-symbolic",
+            "icon": "system-log-out",
             "for": "hyprland",
             "command": ["hyprctl", "dispatch", "exit"]
         },
         {
             "title": "Log-out",
-            "icon": "system-log-out-symbolic",
+            "icon": "system-log-out",
             "for": "niri",
             "command": ["niri", "msg", "action", "quit"]
         }
