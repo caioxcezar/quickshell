@@ -13,7 +13,7 @@ Scope {
 
             required property var modelData
 
-            visible: Global.powerVisibility
+            visible: Global.powerVisibility && !Idle.isLocked
             color: Colors.background
             screen: modelData
             exclusiveZone: -1
@@ -39,29 +39,36 @@ Scope {
                 Repeater {
                     model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
 
-                    IconRounded {
-                        id: icon
+                    Column {
+                        id: item
                         required property var modelData
-
-                        iconSource: Quickshell.iconPath(modelData.icon)
-                        iconColor: Colors.font
-                        iconSize: 96
-                        width: 128
-                        height: 128
-                        radius: 64
-
-                        TapHandler {
-                            acceptedButtons: Qt.LeftButton
-                            onTapped: {
-                                process.running = true;
-                            }
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            text: item.modelData.title
+                            color: Colors.font
+                            font.pointSize: Global.fontTitle
+                            font.bold: true
                         }
+                        Icon {
+                            anchors.horizontalCenter: parent.horizontalCenter
 
-                        Process {
-                            id: process
+                            source: Quickshell.iconPath(item.modelData.icon)
+                            width: 96
+                            height: 96
 
-                            running: false
-                            command: icon.modelData.command
+                            TapHandler {
+                                acceptedButtons: Qt.LeftButton
+                                onTapped: {
+                                    process.running = true;
+                                }
+                            }
+
+                            Process {
+                                id: process
+
+                                running: false
+                                command: item.modelData.command
+                            }
                         }
                     }
                 }

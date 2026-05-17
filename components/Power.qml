@@ -18,9 +18,7 @@ Item {
     TapHandler {
         acceptedButtons: Qt.LeftButton
         onTapped: {
-            if (Idle.isLocked)
-                return;
-            Global.powerVisibility = true;
+            Global.powerVisibility = !Global.powerVisibility;
         }
     }
 }
