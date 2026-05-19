@@ -178,6 +178,8 @@ Column {
 
         function calcDifference(start, end) {
             const difference = start - end;
+            if (difference < 1000)
+                return "now";
             if (difference < 60000)
                 return Math.floor(difference / 1000) + 's';
             else if (difference < 3600000)
