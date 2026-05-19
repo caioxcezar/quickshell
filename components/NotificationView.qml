@@ -163,4 +163,29 @@ Column {
             }
         }
     }
+
+    Text {
+        text: {
+            const time = root.notification.date;
+            const timeFrmt = Qt.formatDateTime(root.notification.date, "dd/MM/yyyy HH:mm");
+
+            return `${timeFrmt} (${calcDifference(new Date(), time)})`;
+        }
+
+        anchors.right: parent.right
+        color: root.fontColor
+        font.pointSize: Global.fontSmall
+
+        function calcDifference(start, end) {
+            const difference = start - end;
+            if (difference < 60000)
+                return Math.floor(difference / 1000) + 's';
+            else if (difference < 3600000)
+                return Math.floor(difference / 60000) + 'm';
+            else if (difference < 86400000)
+                return Math.floor(difference / 3600000) + 'h';
+            else
+                return Math.floor(difference / 86400000) + 'd';
+        }
+    }
 }

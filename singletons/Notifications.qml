@@ -1,7 +1,7 @@
+pragma Singleton
 import QtQuick
 import Quickshell
 import Quickshell.Services.Notifications
-pragma Singleton
 
 NotificationServer {
     id: notifications
@@ -19,10 +19,11 @@ NotificationServer {
     actionsSupported: true
     bodyMarkupSupported: true
     bodySupported: true
-    onNotification: (notif) => {
+    onNotification: notif => {
         if (isMuted || notif.transient) {
             notif.dismiss();
         } else {
+            notif.date = new Date();
             notif.tracked = true;
             notificationReceived(notif);
         }
