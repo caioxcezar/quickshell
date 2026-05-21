@@ -178,16 +178,31 @@ Column {
 
         function calcDifference(start, end) {
             const difference = start - end;
+
             if (difference < 1000)
                 return "now";
+
             if (difference < 60000)
-                return Math.floor(difference / 1000) + 's';
-            else if (difference < 3600000)
-                return Math.floor(difference / 60000) + 'm';
-            else if (difference < 86400000)
-                return Math.floor(difference / 3600000) + 'h';
-            else
-                return Math.floor(difference / 86400000) + 'd';
+                return `${Math.floor(difference / 1000)}s`;
+
+            if (difference < 3600000) {
+                const [floor, rest] = division(difference, 60000);
+                return `${floor}m ${Math.floor(rest * 60)}s`;
+            }
+
+            if (difference < 86400000) {
+                const [floor, rest] = division(difference, 3600000);
+                return `${floor}h ${Math.floor(rest * 60)}m`;
+            }
+
+            const [floor, rest] = division(difference, 86400000);
+            return `${floor}d ${Math.floor(rest * 24)}h`;
+        }
+
+        function division(a, b) {
+            const result = a / b;
+            const floor = Math.floor(result);
+            return [floor, result - floor];
         }
     }
 }
