@@ -19,7 +19,7 @@ Column {
     }
 
     Icon {
-        source: Quickshell.iconPath(root.music.desktopEntry, true)
+        source: Global.getIcon(root.music.desktopEntry, true)
         width: 12
         height: 12
         visible: status === Image.Ready
@@ -85,7 +85,7 @@ Column {
                 active: root.music.canGoPrevious
 
                 sourceComponent: IconRounded {
-                    iconSource: Quickshell.iconPath("media-skip-backward")
+                    iconSource: Global.getIcon("media-skip-backward")
                     iconColor: Colors.font
 
                     TapHandler {
@@ -98,7 +98,7 @@ Column {
             IconRounded {
                 id: icon
 
-                iconSource: Quickshell.iconPath(root.music.isPlaying ? "media-playback-pause" : "media-playback-start")
+                iconSource: Global.getIcon(root.music.isPlaying ? "media-playback-pause" : "media-playback-start")
                 iconColor: Colors.font
 
                 TapHandler {
@@ -111,7 +111,7 @@ Column {
                 active: root.music.canGoNext
 
                 sourceComponent: IconRounded {
-                    iconSource: Quickshell.iconPath("media-skip-forward")
+                    iconSource: Global.getIcon("media-skip-forward")
                     iconColor: Colors.font
 
                     TapHandler {

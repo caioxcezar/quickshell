@@ -21,19 +21,19 @@ Singleton {
     PwObjectTracker {
         objects: [root.output, root.input, ...root.programs]
     }
-    
+
     function getVolumeIcon(volume, isMuted) {
-        let icon = ""
+        let icon = "";
         if (isMuted)
             icon = "audio-volume-muted-symbolic";
         else if (volume < 0.34)
             icon = "audio-volume-low-symbolic";
         else if (volume < 0.64)
             icon = "audio-volume-medium-symbolic";
-        else 
+        else
             icon = "audio-volume-high-symbolic";
 
-        return Quickshell.iconPath(icon);
+        return Global.getIcon(icon);
     }
 
     function setOutput(node) {

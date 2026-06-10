@@ -47,4 +47,25 @@ Singleton {
             "command": ["niri", "msg", "action", "quit"]
         }
     ]
+
+    function getIcon(name, fallback = "image-missing") {
+        let icon = Quickshell.iconPath(name, true);
+
+        if (icon)
+            return icon;
+
+        const lowercase = name.toLowerCase();
+        if (lowercase.includes("steam_app"))
+            icon = lowercase.replace("steam_app", "steam_icon");
+        else if (lowercase.includes("steam"))
+            icon = "steam";
+        else if (lowercase.includes("discordcanery"))
+            icon = "discord-canery";
+        else if (lowercase.includes("zen"))
+            icon = "app.zen_browser.zen";
+        else if (lowercase.includes("wine"))
+            icon = "wine";
+
+        return Quickshell.iconPath(icon, fallback);
+    }
 }

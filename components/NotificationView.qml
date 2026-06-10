@@ -51,7 +51,7 @@ Column {
             anchors.verticalCenter: parent.verticalCenter
             width: 12
             height: 12
-            source: Quickshell.iconPath(root.notification.desktopEntry, true)
+            source: Global.getIcon(root.notification.desktopEntry, true)
             visible: status === Image.Ready
         }
 
@@ -63,7 +63,7 @@ Column {
             width: parent.height
             height: parent.height
             iconSize: 12
-            iconSource: Quickshell.iconPath("view-close", true)
+            iconSource: Global.getIcon("view-close", true)
             iconColor: Colors.font
 
             TapHandler {
@@ -89,7 +89,7 @@ Column {
                     return "";
 
                 if (iconPath.toString().startsWith("image://icon/"))
-                    return Quickshell.iconPath(root.notification.image, true);
+                    return Global.getIcon(root.notification.image, true);
 
                 return iconPath;
             }

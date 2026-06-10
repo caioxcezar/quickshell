@@ -63,15 +63,18 @@ Item {
 
                     property var ws: Hypr.workspaces.find(w => w.id === idx)
                     property bool isActive: Boolean(ws?.focused)
+                    property bool isUrgent: Boolean(ws?.urgent)
                     property var toplevels: {
-                        const toplevels = ws?.toplevels?.values ?? [];
-                        const map = new Map();
-                        for (const toplevel of toplevels) {
-                            if (!map.has(toplevel.lastIpcObject.pid)) {
-                                map.set(toplevel.lastIpcObject.pid, toplevel);
-                            }
-                        }
-                        return Array.from(map.values());
+                        const map = new Set();
+                        const toplevels = (ws?.toplevels?.values ?? []).filter(toplevel => {
+                            const {
+                                pid,
+                                title
+                            } = toplevel.lastIpcObject;
+                            return !title || map.has(pid) ? false : map.add(pid);
+                        });
+
+                        return toplevels;
                     }
 
                     onIsActiveChanged: {
@@ -88,7 +91,7 @@ Item {
                         color: {
                             if (wsItem.isActive)
                                 return "transparent";
-                            if (wsItem.ws?.urgent)
+                            if (wsItem.isUrgent)
                                 return "#a83232";
                             return "transparent";
                         }
@@ -125,7 +128,7 @@ Item {
                                     width: Global.iconSize
                                     height: Global.iconSize
 
-                                    source: Quickshell.iconPath(modelData.lastIpcObject?.class ?? "", "image-missing")
+                                    source: Global.getIcon(modelData.lastIpcObject?.class ?? "", "image-missing")
                                 }
                             }
                         }

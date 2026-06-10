@@ -31,7 +31,7 @@ Item {
                 id: image
 
                 anchors.verticalCenter: parent.verticalCenter
-                source: Quickshell.iconPath(`battery-level-${row.iconLevel}${row.iconState}symbolic`)
+                source: Global.getIcon(`battery-level-${row.iconLevel}${row.iconState}symbolic`)
                 iconColor: Colors.font
             }
 

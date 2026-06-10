@@ -25,16 +25,15 @@ Singleton {
             case "monitorremoved":
             case "monitoradded":
                 Hyprland.refreshMonitors();
-                break;
+            // fallthrough
             case "moveworkspace":
             case "destroyworkspace":
                 Hyprland.refreshWorkspaces();
-                break;
+            // fallthrough
             case "movewindow":
             case "openwindow":
             case "closewindow":
                 Hyprland.refreshToplevels();
-                break;
             }
         }
 

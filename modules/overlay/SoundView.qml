@@ -244,100 +244,104 @@ Item {
                         }
 
                         ListView {
-                            model: Pipewire.programs
+                            model: Pipewire.programs.filter(p => p.properties["pulse.corked"] !== "true")
                             clip: true
                             Layout.fillWidth: true
                             Layout.fillHeight: true
                             spacing: 4
 
-                            delegate: Row {
+                            delegate: Column {
                                 id: item
                                 width: parent.width
+
                                 required property var modelData
+                                property string iconName: (item.modelData?.properties?.["application.icon-name"] || "")
+                                property string binary: (item.modelData?.properties?.["application.process.binary"] || "")
+                                property string name: (item.modelData.name || "")
 
-                                Icon {
-                                    source: {
-                                        const iconName = (item.modelData?.properties?.["application.icon-name"] || "").toLowerCase();
-                                        const binary = (item.modelData?.properties?.["application.process.binary"] || "").toLowerCase();
-                                        const name = (item.modelData.name || "").toLowerCase();
-
-                                        let icon = iconName || name;
-
-                                        if (binary.includes("steam"))
-                                            icon = "steam";
-                                        else if (binary.includes("discordcanery"))
-                                            icon = "discord-canery";
-                                        else if (icon.includes("zen"))
-                                            icon = "app.zen_browser.zen";
-
-                                        return Quickshell.iconPath(icon, "image-missing");
-                                    }
-                                    width: 24
-                                    height: 24
+                                Text {
+                                    text: item.name
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    color: Colors.font
+                                    font.pointSize: Global.fontSmall
                                 }
 
-                                Icon {
-                                    source: Pipewire.getVolumeIcon(item.modelData.audio.volume, item.modelData.audio.muted)
-                                    width: 24
-                                    height: 24
+                                Row {
 
-                                    TapHandler {
-                                        acceptedButtons: Qt.LeftButton
-                                        onTapped: {
-                                            item.modelData.audio.muted = !item.modelData.audio.muted;
-                                        }
+                                    width: parent.width
+
+                                    Icon {
+                                        id: appIcon
+                                        source: Global.getIcon(item.iconName || item.name || item.binary, true)
+                                        width: 24
+                                        height: 24
+                                        visible: status === Image.Ready
                                     }
-                                }
 
-                                Item {
-                                    width: parent.width - 48
-                                    height: parent.height
-                                    Rectangle {
-                                        anchors.horizontalCenter: parent.horizontalCenter
-                                        width: parent.width - 10
-                                        color: Colors.primary
-                                        height: 10
-                                        radius: Global.defaultRadius
-                                        anchors.verticalCenter: parent.verticalCenter
-
-                                        Rectangle {
-                                            width: parent.width * item.modelData.audio.volume
-                                            color: Colors.font
-                                            height: 10
-                                            radius: Global.defaultRadius
-                                            anchors.left: parent.left
-                                            anchors.verticalCenter: parent.verticalCenter
-
-                                            Behavior on width {
-                                                NumberAnimation {
-                                                    duration: Global.animationSpeed / 2
-                                                }
-                                            }
-                                        }
+                                    Icon {
+                                        id: soundIcon
+                                        source: Pipewire.getVolumeIcon(item.modelData.audio.volume, item.modelData.audio.muted)
+                                        width: 24
+                                        height: 24
 
                                         TapHandler {
                                             acceptedButtons: Qt.LeftButton
-                                            onTapped: e => {
-                                                const volume = Number(e.position.x / parent.width).toFixed(2);
-                                                item.modelData.audio.volume = Number(volume);
+                                            onTapped: {
+                                                item.modelData.audio.muted = !item.modelData.audio.muted;
                                             }
                                         }
                                     }
-                                }
 
-                                WheelHandler {
-                                    orientation: Qt.Vertical
-                                    acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
-                                    onWheel: e => {
-                                        if (e.angleDelta.y > 0 && item.modelData.audio.volume >= 1)
-                                            return;
-                                        if (e.angleDelta.y < 0 && item.modelData.audio.volume <= 0)
-                                            return;
+                                    Item {
+                                        width: parent.width - soundIcon.width - (appIcon.visible ? appIcon.width : 0)
+                                        height: parent.height
+                                        Rectangle {
+                                            anchors.horizontalCenter: parent.horizontalCenter
+                                            width: parent.width - 10
+                                            color: Colors.primary
+                                            height: 10
+                                            radius: Global.defaultRadius
+                                            anchors.verticalCenter: parent.verticalCenter
 
-                                        const change = e.angleDelta.y > 0 ? 0.01 : -0.01;
+                                            Rectangle {
+                                                width: parent.width * item.modelData.audio.volume
+                                                color: Colors.font
+                                                height: 10
+                                                radius: Global.defaultRadius
+                                                anchors.left: parent.left
+                                                anchors.verticalCenter: parent.verticalCenter
 
-                                        const volume = Number(item.modelData.audio.volume + change).toFixed(2);
-                                        item.modelData.audio.volume = volume;
+                                                Behavior on width {
+                                                    NumberAnimation {
+                                                        duration: Global.animationSpeed / 2
+                                                    }
+                                                }
+                                            }
+
+                                            TapHandler {
+                                                acceptedButtons: Qt.LeftButton
+                                                onTapped: e => {
+                                                    const volume = Number(e.position.x / parent.width).toFixed(2);
+                                                    item.modelData.audio.volume = Number(volume);
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    WheelHandler {
+                                        orientation: Qt.Vertical
+                                        acceptedDevices: PointerDevice.Mouse | PointerDevice.TouchPad
+                                        onWheel: e => {
+                                            if (e.angleDelta.y > 0 && item.modelData.audio.volume >= 1)
+                                                return;
+                                            if (e.angleDelta.y < 0 && item.modelData.audio.volume <= 0)
+                                                return;
+
+                                            const change = e.angleDelta.y > 0 ? 0.01 : -0.01;
+
+                                            const volume = Number(item.modelData.audio.volume + change).toFixed(2);
+                                            item.modelData.audio.volume = volume;
+                                        }
                                     }
                                 }
                             }

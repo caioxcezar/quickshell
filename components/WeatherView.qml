@@ -19,7 +19,7 @@ Item {
             width: parent.width
             Icon {
                 anchors.verticalCenter: parent.verticalCenter
-                source: Quickshell.iconPath(root.current.icon ?? "")
+                source: Global.getIcon(root.current.icon ?? "")
                 width: 48
                 height: 48
             }
@@ -61,7 +61,7 @@ Item {
                     required property var modelData
 
                     Icon {
-                        source: Quickshell.iconPath(weatherList.modelData.icon ?? "")
+                        source: Global.getIcon(weatherList.modelData.icon ?? "")
                         width: 24
                         height: 24
                     }

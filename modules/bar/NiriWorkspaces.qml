@@ -129,7 +129,7 @@ Item {
                                 width: Global.iconSize
                                 height: Global.iconSize
 
-                                source: Quickshell.iconPath(modelData.app_id ?? "", "image-missing")
+                                source: Global.getIcon(modelData.app_id ?? "", "image-missing")
                             }
                         }
                     }

@@ -8,7 +8,7 @@ Item {
     height: parent.height
 
     IconColored {
-        source: Quickshell.iconPath(Idle.onCaffeine ? "my-caffeine-on-symbolic" : "my-caffeine-off-symbolic")
+        source: Global.getIcon(Idle.onCaffeine ? "my-caffeine-on-symbolic" : "my-caffeine-off-symbolic")
         iconColor: Colors.font
         anchors.centerIn: parent
     }

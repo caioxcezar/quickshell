@@ -114,7 +114,7 @@ Item {
 
             IconColored {
                 id: music
-                source: Quickshell.iconPath(Mpris.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
+                source: Global.getIcon(Mpris.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
                 iconColor: Colors.font
                 Layout.alignment: Qt.AlignLeft
                 anchors.centerIn: parent
@@ -163,7 +163,7 @@ Item {
 
                 Icon {
                     anchors.centerIn: parent
-                    source: Quickshell.iconPath(weather.current.icon ?? "")
+                    source: Global.getIcon(weather.current.icon ?? "")
                     width: 48
                     height: 48
                 }
@@ -204,7 +204,7 @@ Item {
 
             IconColored {
                 id: notif
-                source: Quickshell.iconPath(Notifications.isMuted ? "notifications-disabled-symbolic" : "notifications-symbolic")
+                source: Global.getIcon(Notifications.isMuted ? "notifications-disabled-symbolic" : "notifications-symbolic")
                 iconColor: Colors.font
                 anchors.centerIn: parent
             }

@@ -131,7 +131,7 @@ ShellRoot {
                             Icon {
                                 anchors.horizontalCenter: parent.horizontalCenter
 
-                                source: Quickshell.iconPath(item.modelData.icon)
+                                source: Global.getIcon(item.modelData.icon)
                                 width: 96
                                 height: 96
 

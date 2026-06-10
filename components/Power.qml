@@ -8,7 +8,7 @@ Item {
     height: Global.iconContainer
 
     IconColored {
-        source: Quickshell.iconPath("system-shutdown-symbolic")
+        source: Global.getIcon("system-shutdown-symbolic")
         iconColor: Colors.font
         anchors.centerIn: parent
         width: Global.iconSize
