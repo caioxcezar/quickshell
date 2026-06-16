@@ -162,6 +162,7 @@ Item {
                 Layout.alignment: Qt.AlignVCenter
 
                 Icon {
+                    id: weatherIcon
                     anchors.centerIn: parent
                     source: Global.getIcon(weather.current.icon ?? "")
                     width: 48
@@ -176,6 +177,7 @@ Item {
 
                     font.pointSize: Global.fontSize
                 }
+                visible: weatherIcon.status === Image.Ready
             }
 
             TapHandler {
