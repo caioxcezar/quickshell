@@ -26,14 +26,17 @@ Column {
     }
 
     Component.onCompleted: {
+        const newActions = [];
+
         const actions = notification.actions ?? [];
 
         for (const action of actions) {
             if (isDefault(action))
                 root.action = action;
             else
-                root.actions.push(action);
+                newActions.push(action);
         }
+        root.actions = newActions;
     }
 
     TapHandler {
