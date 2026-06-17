@@ -85,7 +85,7 @@ Item {
                     Panel.openPanel();
 
                 if (widget.actionNotification) {
-                    Notification.openPanel();
+                    Notification.openPanel(false);
                 }
 
                 if (widget.actionMusic)

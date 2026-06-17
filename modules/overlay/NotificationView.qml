@@ -8,6 +8,7 @@ Item {
 
     required property int animationSpeed
     property int contentOpacity: 0
+    property bool interactable: true
 
     visible: false
     implicitWidth: 300
@@ -90,6 +91,7 @@ Item {
 
                 opacity: root.contentOpacity
                 notification: Notification.message
+                interactable: root.interactable
                 fontColor: Colors.surface
 
                 Connections {

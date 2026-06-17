@@ -20,6 +20,7 @@ PanelWindow {
 
     color: "transparent"
     WlrLayershell.namespace: "quickshell:overlay"
+    WlrLayershell.keyboardFocus: Panel.isOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
     PanelView {
         id: panel

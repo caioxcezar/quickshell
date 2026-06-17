@@ -1,6 +1,6 @@
+pragma Singleton
 import QtQuick
 import Quickshell
-pragma Singleton
 
 Singleton {
     property bool isOpen: false
@@ -10,8 +10,9 @@ Singleton {
 
     signal animationFinished(var isOpen)
 
-    function openPanel() {
+    function openPanel(interactable = true) {
         modal.visible = true;
+        modal.interactable = interactable;
         animation.from = 0;
         animation.to = 70;
         isOpen = true;
@@ -37,5 +38,4 @@ Singleton {
         repeat: false
         onTriggered: triggered.disconnect(triggered)
     }
-
 }

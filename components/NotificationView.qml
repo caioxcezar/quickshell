@@ -1,4 +1,5 @@
 pragma ComponentBehavior: Bound
+import QtQuick.Controls
 import QtQuick
 import Quickshell
 import Quickshell.Widgets
@@ -9,6 +10,7 @@ Column {
     id: root
 
     required property var notification
+    property bool interactable: true
     property string fontColor: Colors.font
     property var actions: []
     property var action: null
@@ -68,6 +70,7 @@ Column {
             iconSize: 12
             iconSource: Global.getIcon("view-close", true)
             iconColor: Colors.font
+            visible: root.interactable
 
             TapHandler {
                 acceptedButtons: Qt.LeftButton
@@ -135,10 +138,41 @@ Column {
         }
     }
 
+    Item {
+        height: 5
+        width: parent.width
+    }
+
+    TextField {
+        id: textInline
+
+        visible: root.notification.hasInlineReply && root.interactable
+
+        width: parent.width
+        height: 40
+        placeholderText: "Reply message..."
+        placeholderTextColor: Colors.font
+        color: Colors.font
+        Keys.onReturnPressed: root.notification.sendInlineReply(textInline.text)
+        Component.onCompleted: {
+            textInline.text = "";
+        }
+
+        background: Rectangle {
+            color: Colors.surface
+            radius: 8
+        }
+    }
+
+    Item {
+        height: 5
+        width: parent.width
+    }
+
     Row {
         spacing: 5
         width: parent.width
-        visible: root.actions.length
+        visible: root.actions.length && root.interactable
 
         Repeater {
             model: root.actions
@@ -147,6 +181,7 @@ Column {
                 required property var modelData
                 height: actionLabel.implicitHeight + 10
                 width: actionLabel.implicitWidth + 16
+                anchors.verticalCenter: parent.verticalCenter
                 color: Colors.primary
                 radius: 4
 
