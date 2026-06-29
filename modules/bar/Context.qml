@@ -164,7 +164,7 @@ Item {
                 Icon {
                     id: weatherIcon
                     anchors.centerIn: parent
-                    source: Global.getIcon(weather.current.icon ?? "")
+                    source: Global.getIcon(weather.current.icon, "")
                     width: 48
                     height: 48
                 }
