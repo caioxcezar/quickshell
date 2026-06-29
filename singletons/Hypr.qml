@@ -26,7 +26,7 @@ Singleton {
             case "monitoradded":
                 Hyprland.refreshMonitors();
             // fallthrough
-            case "moveworkspace":
+            case "createworkspace":
             case "destroyworkspace":
                 Hyprland.refreshWorkspaces();
             // fallthrough

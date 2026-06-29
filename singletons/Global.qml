@@ -48,7 +48,7 @@ Singleton {
         }
     ]
 
-    function getIcon(name, fallback = "image-missing") {
+    function getIcon(name = "", fallback = "image-missing") {
         let icon = Quickshell.iconPath(name, true);
 
         if (icon)

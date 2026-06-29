@@ -22,20 +22,6 @@ Item {
         color: Colors.surface
         topLeftRadius: Global.defaultRadius
         bottomLeftRadius: Global.defaultRadius
-        Rectangle {
-            radius: Global.defaultRadius
-            x: root.activeX
-            y: root.activeY
-            width: root.activeWidth
-            height: root.activeHeight
-            color: Colors.primary
-
-            Behavior on x {
-                NumberAnimation {
-                    duration: Global.animationSpeed
-                }
-            }
-        }
     }
 
     Item {
@@ -63,6 +49,14 @@ Item {
 
                     property var ws: Hypr.workspaces.find(w => w.id === idx)
                     property bool isActive: Boolean(ws?.focused)
+                    opacity: isActive ? 1 : 0.5
+
+                    Behavior on opacity {
+                        NumberAnimation {
+                            duration: Global.animationSpeed
+                        }
+                    }
+
                     property bool isUrgent: Boolean(ws?.urgent)
                     property var toplevels: {
                         const map = new Set();
@@ -75,11 +69,6 @@ Item {
                         });
 
                         return toplevels;
-                    }
-
-                    onIsActiveChanged: {
-                        if (isActive)
-                            Qt.callLater(() => root.updateActive(wsItem, highlight));
                     }
 
                     Rectangle {
@@ -95,12 +84,6 @@ Item {
                                 return "#a83232";
                             return "transparent";
                         }
-
-                        onWidthChanged: {
-                            if (!wsItem.isActive)
-                                return;
-                            Qt.callLater(() => root.updateActive(wsItem, highlight));
-                        }
                     }
 
                     Text {
@@ -108,7 +91,7 @@ Item {
                         text: wsItem.idx
                         font.bold: wsItem.isActive
                         anchors.centerIn: parent
-                        color: wsItem.isActive ? Colors.surface : Colors.font
+                        color: Colors.font
                         font.pointSize: Global.fontSize
                     }
 
@@ -140,13 +123,5 @@ Item {
                 }
             }
         }
-    }
-
-    function updateActive(item, rect) {
-        var mapped = item.mapToItem(rectangle, rect.x, rect.y);
-        activeX = mapped.x;
-        activeY = mapped.y;
-        activeWidth = rect.width;
-        activeHeight = rect.height;
     }
 }
