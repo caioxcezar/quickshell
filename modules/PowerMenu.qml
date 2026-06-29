@@ -32,42 +32,51 @@ Scope {
                 }
             }
 
-            Row {
-                spacing: 64
+            Rectangle {
+                color: Colors.surface
                 anchors.centerIn: parent
+                width: row.width + 50
+                height: row.height + 25
+                radius: Global.defaultRadius
 
-                Repeater {
-                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
+                Row {
+                    id: row
+                    spacing: 64
+                    anchors.centerIn: parent
 
-                    Column {
-                        id: item
-                        required property var modelData
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: item.modelData.title
-                            color: Colors.font
-                            font.pointSize: Global.fontTitle
-                            font.bold: true
-                        }
-                        Icon {
-                            anchors.horizontalCenter: parent.horizontalCenter
+                    Repeater {
+                        model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
 
-                            source: Global.getIcon(item.modelData.icon)
-                            width: 96
-                            height: 96
-
-                            TapHandler {
-                                acceptedButtons: Qt.LeftButton
-                                onTapped: {
-                                    process.running = true;
-                                }
+                        Column {
+                            id: item
+                            required property var modelData
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: item.modelData.title
+                                color: Colors.font
+                                font.pointSize: Global.fontTitle
+                                font.bold: true
                             }
+                            Icon {
+                                anchors.horizontalCenter: parent.horizontalCenter
 
-                            Process {
-                                id: process
+                                source: Global.getIcon(item.modelData.icon)
+                                width: 96
+                                height: 96
 
-                                running: false
-                                command: item.modelData.command
+                                TapHandler {
+                                    acceptedButtons: Qt.LeftButton
+                                    onTapped: {
+                                        process.running = true;
+                                    }
+                                }
+
+                                Process {
+                                    id: process
+
+                                    running: false
+                                    command: item.modelData.command
+                                }
                             }
                         }
                     }
