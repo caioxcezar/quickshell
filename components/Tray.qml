@@ -56,8 +56,19 @@ Item {
                 }
 
                 TapHandler {
+                    acceptedButtons: Qt.MiddleButton
+                    onTapped: () => {
+                        if (Idle.isLocked)
+                            return;
+                        item.modelData.secondaryActivate();
+                    }
+                }
+
+                TapHandler {
                     acceptedButtons: Qt.RightButton
                     onTapped: event => {
+                        if (Idle.isLocked)
+                            return;
                         const pos = item.mapToItem(root.window.contentItem, event.position.x, event.position.y);
                         item.modelData.hasMenu && item.modelData.display(root.window, pos.x, pos.y);
                     }
