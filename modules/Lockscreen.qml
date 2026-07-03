@@ -74,6 +74,7 @@ ShellRoot {
                         // Both needs to change because of the lockscreen shortcut
                         Idle.isLocked = false;
                         lock.locked = false;
+                        Global.powerVisibility = false;
                     }
                 }
                 onPamMessage: {
