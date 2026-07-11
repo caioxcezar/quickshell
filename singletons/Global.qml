@@ -66,6 +66,9 @@ Singleton {
         else if (lowercase.includes("wine"))
             icon = "wine";
 
-        return Quickshell.iconPath(icon, fallback);
+        if (fallback)
+            return Quickshell.iconPath(icon, fallback);
+        const result = Quickshell.iconPath(icon, true);
+        return result || null;
     }
 }
