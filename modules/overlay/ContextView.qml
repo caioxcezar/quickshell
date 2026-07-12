@@ -21,6 +21,8 @@ Item {
 
     Connections {
         function onVolumeChanged() {
+            if (Pipewire.isOpen)
+                return;
             Global.contextVisibility = true;
             delayTimer.stop();
             root.delay(1500, () => {
