@@ -17,7 +17,7 @@ ShellRoot {
     property bool firstBoot: !Global.dev
 
     Timer {
-        interval: 500
+        interval: 1
         repeat: false
         running: true
         onTriggered: {

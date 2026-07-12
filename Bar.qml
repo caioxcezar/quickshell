@@ -43,23 +43,9 @@ Scope {
                 color: Colors.background
                 radius: 15
 
-                Loader {
-                    id: workspaces
-                    readonly property Component hyprland: HyprWorkspaces {}
-                    readonly property Component niri: NiriWorkspaces {
-                        screen: panelWindow.modelData
-                    }
-
-                    height: parent.height
-
-                    sourceComponent: {
-                        switch (Global.compositor) {
-                        case "hyprland":
-                            return hyprland;
-                        case "niri":
-                            return niri;
-                        }
-                    }
+                LeftBar {
+                    window: panelWindow
+                    anchors.left: parent.left
                 }
 
                 Context {

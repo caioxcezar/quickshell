@@ -1,14 +1,15 @@
 import QtQuick
+import Quickshell.Io
 import qs.components
 import qs.singletons
 
 Item {
     width: Global.iconContainer
     height: Global.iconContainer
+    anchors.verticalCenter: parent.verticalCenter
 
-    IconColored {
-        source: Global.getIcon("system-shutdown-symbolic")
-        iconColor: Colors.font
+    Icon {
+        source: Global.getIcon("distributor-logo-archlinux", "application-menu")
         anchors.centerIn: parent
         width: Global.iconSize
         height: Global.iconSize
@@ -17,7 +18,14 @@ Item {
     TapHandler {
         acceptedButtons: Qt.LeftButton
         onTapped: {
-            Global.powerVisibility = !Global.powerVisibility;
+            process.running = true;
         }
+    }
+
+    Process {
+        id: process
+
+        running: false
+        command: ["albert", "toggle"]
     }
 }
