@@ -10,8 +10,9 @@ Item {
 
     property var output: Pipewire.output
     property real volume: output?.audio.volume ?? 0
+    property var brightness: Brightness.percentage
 
-    visible: Global.contextVisibility
+    visible: Global.volumeContextVisibility || Global.brightnessContextVisibility
 
     function delay(ms, callback) {
         delayTimer.interval = ms;
@@ -23,10 +24,20 @@ Item {
         function onVolumeChanged() {
             if (Pipewire.isOpen)
                 return;
-            Global.contextVisibility = true;
+            Global.volumeContextVisibility = true;
             delayTimer.stop();
             root.delay(1500, () => {
-                Global.contextVisibility = false;
+                Global.volumeContextVisibility = false;
+            });
+        }
+
+        function onBrightnessChanged() {
+            if (Pipewire.isOpen)
+                return;
+            Global.brightnessContextVisibility = true;
+            delayTimer.stop();
+            root.delay(1500, () => {
+                Global.brightnessContextVisibility = false;
             });
         }
 
@@ -39,84 +50,37 @@ Item {
     anchors.bottomMargin: 150
 
     Loader {
-        active: root.visible
+        active: Global.volumeContextVisibility
         anchors.fill: parent
 
         sourceComponent: Item {
-            id: container
             anchors {
                 fill: parent
                 centerIn: parent
             }
 
-            Rectangle {
-                id: row
+            PercentageView {
+                animationSpeed: root.animationSpeed
+                percentage: root.volume
+                icon: Pipewire.icon
+            }
+        }
+    }
 
-                color: Colors.surface
-                radius: 10
+    Loader {
+        active: Global.brightnessContextVisibility
+        anchors.fill: parent
 
-                width: 220
-                height: parent.height
-                anchors.centerIn: parent
+        sourceComponent: Item {
+            anchors {
+                fill: parent
+                centerIn: parent
+            }
 
-                Row {
-                    width: parent.width - 5
-                    height: parent.height
-                    spacing: 5
-
-                    Item {
-                        id: icon
-                        height: parent.height
-                        width: parent.height
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        IconColored {
-
-                            anchors.centerIn: parent
-                            height: parent.height - 10
-                            width: parent.height - 10
-                            source: Pipewire.icon
-                            iconColor: Colors.font
-                        }
-                    }
-
-                    Item {
-                        width: parent.width - icon.width - 5
-                        height: parent.height
-                        anchors.verticalCenter: parent.verticalCenter
-
-                        Text {
-                            text: `${(root.volume * 100).toFixed(0)}%`
-                            color: Colors.font
-                            font.pointSize: Global.fontSize
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            anchors.top: parent.top
-                        }
-
-                        Rectangle {
-                            width: parent.width
-                            color: Colors.primary
-                            height: 10
-                            radius: 10
-                            anchors.verticalCenter: parent.verticalCenter
-
-                            Rectangle {
-                                width: parent.width * root.volume
-                                color: Colors.font
-                                height: 10
-                                radius: 10
-                                anchors.left: parent.left
-                                anchors.verticalCenter: parent.verticalCenter
-
-                                Behavior on width {
-                                    NumberAnimation {
-                                        duration: root.animationSpeed
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
+            PercentageView {
+                animationSpeed: root.animationSpeed
+                percentage: root.brightness / 100
+                icon: Brightness.icon
             }
         }
     }

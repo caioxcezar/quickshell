@@ -8,7 +8,7 @@ import qs.modules.overlay
 PanelWindow {
     id: root
 
-    visible: Panel.isOpen || MusicPlayer.isOpen || Pipewire.isOpen || Notification.isOpen || Global.contextVisibility
+    visible: Panel.isOpen || MusicPlayer.isOpen || Pipewire.isOpen || Notification.isOpen || Global.volumeContextVisibility || Global.brightnessContextVisibility
     property int animationSpeed: Global.animationSpeed / 2
 
     anchors {
@@ -63,5 +63,5 @@ PanelWindow {
     Region {
         id: region
     }
-    mask: Global.contextVisibility || Notification.isOpen ? region : null
+    mask: Global.brightnessContextVisibility || Global.volumeContextVisibility || Notification.isOpen ? region : null
 }
