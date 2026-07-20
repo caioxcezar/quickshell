@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
 import qs.singletons
@@ -7,6 +8,7 @@ Item {
     id: root
 
     required property int animationSpeed
+    required property var colors
     property bool contentActive: false
     visible: false
 
@@ -42,7 +44,7 @@ Item {
     }
 
     Rectangle {
-        color: Colors.background
+        color: root.colors.background
         anchors.fill: parent
         bottomRightRadius: Global.defaultRadius
         bottomLeftRadius: Global.defaultRadius
@@ -70,7 +72,7 @@ Item {
                             Rectangle {
                                 anchors.fill: parent
                                 radius: Global.defaultRadius
-                                color: Colors.surface
+                                color: root.colors.surface
                                 clip: true
                                 anchors.topMargin: 5
                                 anchors.leftMargin: 5
@@ -78,6 +80,8 @@ Item {
                                 CalendarView {
                                     anchors.margins: 5
                                     anchors.fill: parent
+
+                                    colors: root.colors
                                 }
                             }
                         }
@@ -88,13 +92,14 @@ Item {
                             Rectangle {
                                 anchors.fill: parent
                                 radius: Global.defaultRadius
-                                color: Colors.surface
+                                color: root.colors.surface
                                 clip: true
                                 anchors.bottomMargin: 5
                                 anchors.leftMargin: 5
 
                                 WeatherView {
                                     id: weatherView
+                                    colors: root.colors
                                     anchors.margins: 5
                                     anchors.fill: parent
                                 }
@@ -108,6 +113,8 @@ Item {
                     Layout.fillHeight: true
 
                     NotificationsList {
+                        colors: root.colors
+
                         anchors.fill: parent
                         anchors.topMargin: 5
                         anchors.bottomMargin: 5

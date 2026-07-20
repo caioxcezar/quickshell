@@ -6,8 +6,8 @@ import qs.components
 Item {
     id: root
 
-    width: content.width
     height: parent.height
+    width: content.width + 6
 
     required property var window
 
@@ -15,15 +15,18 @@ Item {
         id: content
 
         anchors.centerIn: parent
-        spacing: 2
+        spacing: 6
         height: parent.height
 
         Menu {}
 
         Loader {
-            readonly property Component hyprland: HyprWorkspaces {}
+            readonly property Component hyprland: HyprWorkspaces {
+                colors: root.window.colors
+            }
             readonly property Component niri: NiriWorkspaces {
                 screen: root.window.modelData
+                colors: root.window.colors
             }
 
             height: parent.height

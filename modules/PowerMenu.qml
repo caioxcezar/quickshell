@@ -1,3 +1,4 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import Quickshell
 import Quickshell.Io
@@ -12,9 +13,10 @@ Scope {
             id: root
 
             required property var modelData
+            property var colors: Colors.getColorsByScreen(modelData.name)
 
             visible: Global.powerVisibility && !Idle.isLocked
-            color: Colors.background
+            color: root.colors.background
             screen: modelData
             exclusiveZone: -1
 
@@ -33,7 +35,7 @@ Scope {
             }
 
             Rectangle {
-                color: Colors.surface
+                color: root.colors.surface
                 anchors.centerIn: parent
                 width: row.width + 50
                 height: row.height + 25
@@ -53,7 +55,7 @@ Scope {
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: item.modelData.title
-                                color: Colors.font
+                                color: root.colors.font
                                 font.pointSize: Global.fontTitle
                                 font.bold: true
                             }

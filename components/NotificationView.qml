@@ -10,8 +10,10 @@ Column {
     id: root
 
     required property var notification
+    required property var colors
+
     property bool interactable: true
-    property string fontColor: Colors.font
+    property string fontColor: root.colors.font
     property var actions: []
     property var action: null
 
@@ -69,7 +71,8 @@ Column {
             height: parent.height
             iconSize: 12
             iconSource: Global.getIcon("view-close", true)
-            iconColor: Colors.font
+            iconColor: root.colors.font
+            background: root.colors.primary
             visible: root.interactable
 
             TapHandler {
@@ -151,15 +154,15 @@ Column {
         width: parent.width
         height: 40
         placeholderText: "Reply message..."
-        placeholderTextColor: Colors.font
-        color: Colors.font
+        placeholderTextColor: root.colors.font
+        color: root.colors.font
         Keys.onReturnPressed: root.notification.sendInlineReply(textInline.text)
         Component.onCompleted: {
             textInline.text = "";
         }
 
         background: Rectangle {
-            color: Colors.surface
+            color: root.colors.surface
             radius: 8
         }
     }
@@ -182,7 +185,7 @@ Column {
                 height: actionLabel.implicitHeight + 10
                 width: actionLabel.implicitWidth + 16
                 anchors.verticalCenter: parent.verticalCenter
-                color: Colors.primary
+                color: root.colors.primary
                 radius: 4
 
                 Text {
@@ -190,7 +193,7 @@ Column {
 
                     anchors.centerIn: parent
                     text: parent.modelData.text
-                    color: Colors.font
+                    color: root.colors.font
                     font.pointSize: Global.fontSize
                 }
 

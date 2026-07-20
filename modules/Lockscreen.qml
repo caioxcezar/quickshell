@@ -15,7 +15,7 @@ ShellRoot {
     id: root
 
     Timer {
-        interval: 1000
+        interval: 500
         repeat: false
         running: true
         onTriggered: {
@@ -41,6 +41,7 @@ ShellRoot {
         WlSessionLockSurface {
             id: surface
 
+            property var colors: Colors.getColorsByScreen(surface.screen.name)
             color: "transparent"
 
             ScreencopyView {
@@ -123,7 +124,7 @@ ShellRoot {
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: item.modelData.title
-                                color: Colors.font
+                                color: surface.colors.font
                                 font.pointSize: Global.fontTitle
                                 font.bold: true
                             }
@@ -167,6 +168,8 @@ ShellRoot {
                 anchors.bottom: parent.bottom
 
                 PlayerList {
+                    colors: surface.colors
+
                     verticalLayoutDirection: ListView.BottomToTop
 
                     header: Item {
@@ -191,7 +194,7 @@ ShellRoot {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: Time.time
-                            color: Colors.font
+                            color: surface.colors.font
                             font.pointSize: Global.fontTitle
                             font.bold: true
                         }
@@ -199,7 +202,7 @@ ShellRoot {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "Screen Locked"
-                            color: Colors.font
+                            color: surface.colors.font
                             font.pointSize: Global.fontTitle
                             font.bold: true
                         }
@@ -212,9 +215,9 @@ ShellRoot {
                             width: 300
                             height: 40
                             placeholderText: "Enter password..."
-                            placeholderTextColor: Colors.font
+                            placeholderTextColor: surface.colors.font
                             echoMode: TextInput.Password
-                            color: Colors.font
+                            color: surface.colors.font
                             Keys.onReturnPressed: {
                                 pam.user = Qt.binding(() => {
                                     return Quickshell.env("USER");
@@ -231,7 +234,7 @@ ShellRoot {
                             }
 
                             background: Rectangle {
-                                color: Colors.surface
+                                color: surface.colors.surface
                                 radius: 8
                             }
                         }
@@ -241,7 +244,7 @@ ShellRoot {
 
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "Incorrect password"
-                            color: Colors.error
+                            color: surface.colors.error
                             font.pointSize: Global.fontSubtitle
                             visible: pam.error
                         }

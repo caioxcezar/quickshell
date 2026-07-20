@@ -14,6 +14,7 @@ PanelWindow {
     visible: true
     exclusiveZone: -1
     color: "transparent"
+    property var colors: Colors.getColorsByScreen(root.screen.name)
 
     anchors {
         top: true
@@ -24,7 +25,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: Colors.background
+        color: root.colors.background
 
         ColumnLayout {
             width: tray.width
@@ -60,7 +61,7 @@ PanelWindow {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: item.modelData.title
-                            color: Colors.font
+                            color: root.colors.font
                             font.pointSize: Global.fontTitle
                             font.bold: true
                         }
@@ -104,6 +105,8 @@ PanelWindow {
             anchors.bottom: parent.bottom
 
             PlayerList {
+                colors: root.colors
+
                 verticalLayoutDirection: ListView.BottomToTop
 
                 header: Item {
@@ -128,7 +131,7 @@ PanelWindow {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: Time.time
-                        color: Colors.font
+                        color: root.colors.font
                         font.pointSize: Global.fontTitle
                         font.bold: true
                     }
@@ -136,7 +139,7 @@ PanelWindow {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "Screen Locked"
-                        color: Colors.font
+                        color: root.colors.font
                         font.pointSize: Global.fontTitle
                         font.bold: true
                     }
@@ -148,12 +151,12 @@ PanelWindow {
                         width: 300
                         height: 40
                         placeholderText: "Enter password..."
-                        placeholderTextColor: Colors.font
+                        placeholderTextColor: root.colors.font
                         echoMode: TextInput.Password
-                        color: Colors.font
+                        color: root.colors.font
 
                         background: Rectangle {
-                            color: Colors.surface
+                            color: root.colors.surface
                             radius: 8
                         }
                     }

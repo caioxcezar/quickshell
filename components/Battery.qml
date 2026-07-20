@@ -1,12 +1,13 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import Quickshell.Services.UPower
 import qs.components
 import qs.singletons
 
 Item {
     id: root
+
+    required property var iconColor
     property var device: UPower.devices.values[0]
 
     width: loader.width
@@ -32,12 +33,12 @@ Item {
 
                 anchors.verticalCenter: parent.verticalCenter
                 source: Global.getIcon(`battery-level-${row.iconLevel}${row.iconState}symbolic`)
-                iconColor: Colors.font
+                iconColor: root.iconColor
             }
 
             Text {
                 text: `${(row.percentage * 100).toFixed(0)}%`
-                color: Colors.font
+                color: root.iconColor
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: Global.fontSize
             }

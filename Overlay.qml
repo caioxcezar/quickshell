@@ -22,29 +22,36 @@ PanelWindow {
     WlrLayershell.namespace: "quickshell:overlay"
     WlrLayershell.keyboardFocus: Panel.isOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
+    property var colors: Colors.getColorsByScreen(root.screen.name)
+
     PanelView {
         id: panel
         animationSpeed: root.animationSpeed
+        colors: root.colors
     }
 
     MusicPlayerView {
         id: musicPlayer
         animationSpeed: root.animationSpeed
+        colors: root.colors
     }
 
     SoundView {
         id: sound
         animationSpeed: root.animationSpeed
+        colors: root.colors
     }
 
     NotificationView {
         id: notification
         animationSpeed: root.animationSpeed
+        colors: root.colors
     }
 
     ContextView {
         id: context
         animationSpeed: root.animationSpeed
+        colors: root.colors
     }
 
     MouseArea {

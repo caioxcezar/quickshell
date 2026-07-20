@@ -5,6 +5,8 @@ import qs.singletons
 ListView {
     id: root
 
+    required property var colors
+
     clip: true
     spacing: 8
     model: [...Mpris.players].reverse()
@@ -17,12 +19,15 @@ ListView {
 
         width: root.width - 10
         height: content.implicitHeight + 10
-        color: Colors.surface
+        color: root.colors.surface
         radius: Global.defaultRadius
         anchors.horizontalCenter: parent.horizontalCenter
 
         PlayerView {
             id: content
+
+            colors: root.colors
+
             anchors.centerIn: parent
             width: parent.width - 10
             music: item.modelData

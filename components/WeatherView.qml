@@ -7,6 +7,7 @@ import Quickshell
 Item {
     id: root
 
+    required property var colors
     property var current: Weather.current ?? new Object()
     property var currentUnits: Weather.currentUnits ?? new Object()
     property var dailyUnits: Weather.dailyUnits ?? new Object()
@@ -31,20 +32,20 @@ Item {
                     maximumLineCount: 2
                     wrapMode: Text.WordWrap
                     width: parent.width
-                    color: Colors.font
+                    color: root.colors.font
                     font.pointSize: Global.fontSize
                     font.bold: true
                 }
 
                 Text {
                     text: `Temperature: ${root.current.temperature}${root.currentUnits.temperature}`
-                    color: Colors.font
+                    color: root.colors.font
                     font.pointSize: Global.fontSize
                 }
 
                 Text {
                     text: `Wind: ${root.current.windSpeed} ${root.currentUnits.windSpeed} Direction: ${root.current.windDirection}${root.currentUnits.windDirection}`
-                    color: Colors.font
+                    color: root.colors.font
                     font.pointSize: Global.fontSize
                 }
             }
@@ -60,22 +61,23 @@ Item {
                     id: weatherList
                     required property var modelData
 
-                    Icon {
+                    IconColored {
                         source: Global.getIcon(weatherList.modelData.icon ?? "")
                         width: 24
                         height: 24
+                        iconColor: root.colors.font
                     }
 
                     Column {
                         Text {
                             text: `${weatherList.modelData.temperature2mMin}${root.dailyUnits.temperature2mMin}`
-                            color: Colors.font
+                            color: root.colors.font
                             font.pointSize: Global.fontSmall
                         }
 
                         Text {
                             text: `${weatherList.modelData.temperature2mMax}${root.dailyUnits.temperature2mMax}`
-                            color: Colors.font
+                            color: root.colors.font
                             font.pointSize: Global.fontSmall
                         }
                     }

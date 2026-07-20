@@ -1,15 +1,15 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import Qt5Compat.GraphicalEffects
 import qs.singletons
 
 Column {
     id: root
     width: parent.width
-    spacing: 5
+    spacing: 6
 
     required property var music
+    required property var colors
     property real percentage: music.position >= music.length ? 1 : Number((music.position / music.length).toFixed(2))
     property string imageSrc: Mpris.getTrackArtUrl(music)
 
@@ -56,7 +56,7 @@ Column {
 
             Text {
                 text: root.music.trackTitle
-                color: Colors.font
+                color: root.colors.font
                 font.bold: true
                 font.pointSize: Global.fontSize
                 width: parent.width
@@ -65,7 +65,7 @@ Column {
 
             Text {
                 text: root.music.trackArtist
-                color: Colors.font
+                color: root.colors.font
                 font.pointSize: Global.fontSize
                 wrapMode: Text.WordWrap
                 width: parent.width
@@ -86,7 +86,8 @@ Column {
 
                 sourceComponent: IconRounded {
                     iconSource: Global.getIcon("media-skip-backward")
-                    iconColor: Colors.font
+                    iconColor: root.colors.font
+                    background: root.colors.primary
 
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
@@ -99,7 +100,7 @@ Column {
                 id: icon
 
                 iconSource: Global.getIcon(root.music.isPlaying ? "media-playback-pause" : "media-playback-start")
-                iconColor: Colors.font
+                iconColor: root.colors.font
 
                 TapHandler {
                     acceptedButtons: Qt.LeftButton
@@ -112,7 +113,7 @@ Column {
 
                 sourceComponent: IconRounded {
                     iconSource: Global.getIcon("media-skip-forward")
-                    iconColor: Colors.font
+                    iconColor: root.colors.font
 
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
@@ -129,7 +130,7 @@ Column {
 
                 Rectangle {
                     width: parent.width
-                    color: Colors.primary
+                    color: root.colors.primary
                     height: 10
                     radius: 10
                     anchors.verticalCenter: parent.verticalCenter
@@ -138,7 +139,7 @@ Column {
                         id: progressBar
 
                         width: parent.width * root.percentage
-                        color: Colors.font
+                        color: root.colors.font
                         height: 10
                         radius: 10
                         anchors.left: parent.left

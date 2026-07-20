@@ -6,6 +6,8 @@ import qs.singletons
 ListView {
     id: root
 
+    required property var colors
+
     width: 200
     height: 200
     snapMode: ListView.SnapOneItem
@@ -31,7 +33,7 @@ ListView {
             width: root.width
             text: Qt.formatDateTime(new Date(item.modelData.year, item.modelData.month, 1), "MMMM yyyy")
             font.pointSize: Global.fontTitle
-            color: Colors.font
+            color: root.colors.font
         }
 
         DayOfWeekRow {
@@ -46,7 +48,7 @@ ListView {
                 text: shortName
                 font.pointSize: Global.fontSubtitle
                 font.bold: true
-                color: Colors.font
+                color: root.colors.font
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
             }
@@ -71,7 +73,7 @@ ListView {
                     width: Math.min(parent.width, parent.height)
                     height: width
                     radius: width / 2
-                    color: parent.model.today ? Colors.error : "transparent"
+                    color: parent.model.today ? root.colors.error : "transparent"
                 }
 
                 Text {
@@ -82,7 +84,7 @@ ListView {
                     opacity: parent.model.month === grid.month ? 1 : 0
                     text: grid.locale.toString(parent.model.date, "d")
                     font.pointSize: Global.fontSize
-                    color: Colors.font
+                    color: root.colors.font
                 }
             }
         }

@@ -4,11 +4,11 @@ import Quickshell
 
 Singleton {
     readonly property string compositor: "hyprland"
-    readonly property bool dev: false
+    readonly property bool dev: true
     readonly property int animationSpeed: 300
-    readonly property int height: 48
-    readonly property int iconSize: 24
-    readonly property int iconContainer: 28
+    readonly property int height: 24
+    readonly property int iconSize: 22
+    readonly property int iconContainer: 18
     readonly property int iconContainerRadius: iconContainer / 2
     readonly property real fontTitle: 20
     readonly property real fontSubtitle: 11

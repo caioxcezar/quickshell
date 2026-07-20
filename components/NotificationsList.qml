@@ -5,6 +5,8 @@ import qs.singletons
 ListView {
     id: root
 
+    required property var colors
+
     spacing: 5
     model: [...Notifications.list.values].reverse()
 
@@ -14,12 +16,12 @@ ListView {
 
         width: root.width
         height: content.implicitHeight + 16
-        color: Colors.surface
+        color: root.colors.surface
         radius: Global.defaultRadius
 
         NotificationView {
             id: content
-
+            colors: root.colors
             notification: rect.modelData
         }
     }

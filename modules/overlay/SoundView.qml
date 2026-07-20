@@ -1,10 +1,9 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
-import qs.components
-import qs.singletons
 import QtQuick.Controls
 import QtQuick.Layouts
+import qs.components
+import qs.singletons
 
 // qmllint disable uncreatable-type
 Item {
@@ -12,6 +11,7 @@ Item {
 
     property bool contentActive: false
     required property int animationSpeed
+    required property var colors
 
     visible: false
     implicitWidth: 0
@@ -51,7 +51,7 @@ Item {
     Rectangle {
         anchors.fill: parent
         clip: true
-        color: Colors.background
+        color: root.colors.background
         topLeftRadius: Global.defaultRadius
         bottomLeftRadius: Global.defaultRadius
 
@@ -67,7 +67,7 @@ Item {
                 spacing: 4
 
                 Rectangle {
-                    color: Colors.surface
+                    color: root.colors.surface
                     Layout.fillWidth: true
                     height: outputDefault.height + 10
                     radius: Global.defaultRadius
@@ -80,7 +80,7 @@ Item {
                         Text {
                             text: "Device"
                             anchors.horizontalCenter: parent.horizontalCenter
-                            color: Colors.font
+                            color: root.colors.font
                             font.pointSize: Global.fontSize
                             font.bold: true
                         }
@@ -99,7 +99,7 @@ Item {
                             contentItem: Text {
                                 text: control.displayText
                                 font: control.font
-                                color: Colors.font
+                                color: root.colors.font
                                 verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
                             }
@@ -118,7 +118,7 @@ Item {
                                     context.lineTo(width, 0);
                                     context.lineTo(width / 2, height);
                                     context.closePath();
-                                    context.fillStyle = Colors.font;
+                                    context.fillStyle = root.colors.font;
                                     context.fill();
                                 }
                             }
@@ -139,7 +139,7 @@ Item {
 
                                 background: Rectangle {
                                     radius: Global.defaultRadius
-                                    color: Colors.background
+                                    color: root.colors.surface
                                 }
                             }
 
@@ -151,12 +151,12 @@ Item {
                                 highlighted: control.highlightedIndex === index
                                 contentItem: Text {
                                     text: itemDelegate.modelData.description
-                                    color: itemDelegate.highlighted ? Colors.font : Colors.surface
-                                    font.bold: itemDelegate.modelData === control.currentValue
+                                    color: itemDelegate.modelData === control.currentValue ? root.colors.error : root.colors.font
+                                    font.bold: itemDelegate.highlighted
                                     verticalAlignment: Text.AlignVCenter
                                 }
                                 background: Rectangle {
-                                    color: itemDelegate.highlighted ? Colors.surface : "transparent"
+                                    color: itemDelegate.highlighted ? root.colors.surface : "transparent"
                                     radius: Global.defaultRadius
                                 }
                             }
@@ -168,10 +168,11 @@ Item {
                             sourceComponent: Row {
                                 width: parent.width
                                 height: 24
-                                Icon {
+                                IconColored {
                                     source: Pipewire.icon
                                     width: 24
                                     height: 24
+                                    iconColor: root.colors.font
 
                                     TapHandler {
                                         acceptedButtons: Qt.LeftButton
@@ -187,14 +188,14 @@ Item {
                                     Rectangle {
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         width: parent.width - 10
-                                        color: Colors.primary
+                                        color: root.colors.primary
                                         height: 10
                                         radius: Global.defaultRadius
                                         anchors.verticalCenter: parent.verticalCenter
 
                                         Rectangle {
                                             width: parent.width * Pipewire.output.audio.volume
-                                            color: Colors.font
+                                            color: root.colors.font
                                             height: 10
                                             radius: Global.defaultRadius
                                             anchors.left: parent.left
@@ -222,7 +223,7 @@ Item {
                 }
 
                 Rectangle {
-                    color: Colors.surface
+                    color: root.colors.surface
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
@@ -238,7 +239,7 @@ Item {
                             text: "Applications"
                             Layout.alignment: Qt.AlignHCenter
 
-                            color: Colors.font
+                            color: root.colors.font
                             font.pointSize: Global.fontSize
                             font.bold: true
                         }
@@ -262,7 +263,7 @@ Item {
                                 Text {
                                     text: item.name
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    color: Colors.font
+                                    color: root.colors.font
                                     font.pointSize: Global.fontSmall
                                 }
 
@@ -278,9 +279,10 @@ Item {
                                         visible: status === Image.Ready
                                     }
 
-                                    Icon {
+                                    IconColored {
                                         id: soundIcon
                                         source: Pipewire.getVolumeIcon(item.modelData.audio.volume, item.modelData.audio.muted)
+                                        iconColor: root.colors.font
                                         width: 24
                                         height: 24
 
@@ -298,14 +300,14 @@ Item {
                                         Rectangle {
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 10
-                                            color: Colors.primary
+                                            color: root.colors.primary
                                             height: 10
                                             radius: Global.defaultRadius
                                             anchors.verticalCenter: parent.verticalCenter
 
                                             Rectangle {
                                                 width: parent.width * item.modelData.audio.volume
-                                                color: Colors.font
+                                                color: root.colors.font
                                                 height: 10
                                                 radius: Global.defaultRadius
                                                 anchors.left: parent.left

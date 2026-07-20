@@ -5,6 +5,9 @@ import qs.singletons
 
 Item {
     id: root
+
+    required property var iconColor
+
     property var output: Pipewire.output
     property var input: Pipewire.input
 
@@ -42,8 +45,10 @@ Item {
             TapHandler {
                 acceptedButtons: Qt.LeftButton | Qt.RightButton
                 onTapped: {
-                    if (Pipewire.isOpen) Pipewire.closePanel();
-                    else Pipewire.openPanel();
+                    if (Pipewire.isOpen)
+                        Pipewire.closePanel();
+                    else
+                        Pipewire.openPanel();
                 }
             }
 
@@ -52,14 +57,14 @@ Item {
 
                 anchors.verticalCenter: parent.verticalCenter
                 source: Pipewire.icon
-                iconColor: Colors.font
+                iconColor: root.iconColor
             }
 
             Text {
                 id: text
 
                 text: `${(root.output.audio.volume * 100).toFixed(0)}%`
-                color: Colors.font
+                color: root.iconColor
                 font.pointSize: Global.fontSize
                 anchors.verticalCenter: parent.verticalCenter
             }

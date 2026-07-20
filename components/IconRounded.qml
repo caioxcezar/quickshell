@@ -7,11 +7,13 @@ Rectangle {
 
     property string iconSource
     property string iconColor
+    property string background
+
     property int iconSize: Global.iconSize
 
     width: Global.iconContainer
     height: Global.iconContainer
-    color: Colors.primary
+    color: root.background
     radius: 10
 
     Loader {

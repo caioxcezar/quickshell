@@ -7,6 +7,7 @@ Item {
     id: root
 
     required property int animationSpeed
+    required property var colors
     property int contentOpacity: 0
     property bool interactable: true
 
@@ -61,7 +62,7 @@ Item {
         // qmllint enable missing-property
         height: 2
         width: 0
-        color: Colors.font
+        color: root.colors.font
 
         NumberAnimation {
             id: progressAnimation
@@ -82,7 +83,7 @@ Item {
         sourceComponent: Rectangle {
             anchors.fill: parent
             clip: true
-            color: Colors.background
+            color: root.colors.background
             bottomRightRadius: 10
             bottomLeftRadius: 10
 
@@ -92,7 +93,7 @@ Item {
                 opacity: root.contentOpacity
                 notification: Notification.message
                 interactable: root.interactable
-                fontColor: Colors.surface
+                fontColor: root.colors.surface
 
                 Connections {
                     function onOpacityChanged() {

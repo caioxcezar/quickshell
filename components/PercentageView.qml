@@ -6,9 +6,10 @@ Rectangle {
     id: root
 
     required property var percentage
+    required property var colors
     required property var animationSpeed
     required property var icon
-    color: Colors.surface
+    color: colors.surface
     radius: 10
 
     width: 220
@@ -32,7 +33,7 @@ Rectangle {
                 height: parent.height - 10
                 width: parent.height - 10
                 source: root.icon
-                iconColor: Colors.font
+                iconColor: root.colors.font
             }
         }
 
@@ -43,7 +44,7 @@ Rectangle {
 
             Text {
                 text: `${(root.percentage * 100).toFixed(0)}%`
-                color: Colors.font
+                color: root.colors.font
                 font.pointSize: Global.fontSize
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
@@ -51,14 +52,14 @@ Rectangle {
 
             Rectangle {
                 width: parent.width
-                color: Colors.primary
+                color: root.colors.primary
                 height: 10
                 radius: 10
                 anchors.verticalCenter: parent.verticalCenter
 
                 Rectangle {
                     width: parent.width * root.percentage
-                    color: Colors.font
+                    color: root.colors.font
                     height: 10
                     radius: 10
                     anchors.left: parent.left

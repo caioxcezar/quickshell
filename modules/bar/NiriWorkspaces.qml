@@ -1,6 +1,5 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import Quickshell.Widgets
 import qs.singletons
 
@@ -9,7 +8,8 @@ Item {
     width: content.width
     height: parent.height
 
-    property var screen
+    required property var screen
+    required property var colors
 
     property real activeX: 0
     property real activeY: 0
@@ -21,7 +21,7 @@ Item {
         width: content.width
         height: parent.height
         anchors.centerIn: parent
-        color: Colors.surface
+        color: root.colors.surface
         topLeftRadius: Global.defaultRadius
         bottomLeftRadius: Global.defaultRadius
         Rectangle {
@@ -30,7 +30,7 @@ Item {
             y: root.activeY
             width: root.activeWidth
             height: root.activeHeight
-            color: Colors.primary
+            color: root.colors.primary
 
             Behavior on x {
                 NumberAnimation {
@@ -112,7 +112,7 @@ Item {
                         text: wsItem.idx
                         font.bold: wsItem.isActive
                         anchors.centerIn: parent
-                        color: wsItem.isActive ? Colors.surface : Colors.font
+                        color: wsItem.isActive ? root.colors.surface : root.colors.font
                         font.pointSize: Global.fontSize
                     }
 

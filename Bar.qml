@@ -21,13 +21,7 @@ Scope {
             implicitHeight: Global.height
             color: "transparent"
 
-            // qmllint disable unqualified unresolved-type missing-property
-            margins {
-                top: Global.marginBar
-                left: Global.marginBar
-                right: Global.marginBar
-            }
-            // qmllint enable unqualified unresolved-type missing-property
+            property var colors: Colors.getColorsByTheme(luminance.theme)
 
             anchors {
                 top: true
@@ -40,6 +34,7 @@ Scope {
             }
 
             Luminance {
+                id: luminance
                 screen: panelWindow.modelData
             }
 
@@ -47,10 +42,8 @@ Scope {
                 anchors.fill: parent
                 active: PreLoading.finished
 
-                sourceComponent: Rectangle {
+                sourceComponent: Item {
                     anchors.fill: parent
-                    color: Colors.background
-                    radius: 15
 
                     LeftBar {
                         window: panelWindow
@@ -58,6 +51,7 @@ Scope {
                     }
 
                     Context {
+                        window: panelWindow
                         anchors.centerIn: parent
                     }
 

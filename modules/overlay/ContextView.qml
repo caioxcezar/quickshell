@@ -7,6 +7,7 @@ Item {
     id: root
 
     required property int animationSpeed
+    required property var colors
 
     property var output: Pipewire.output
     property real volume: output?.audio.volume ?? 0
@@ -63,6 +64,7 @@ Item {
                 animationSpeed: root.animationSpeed
                 percentage: root.volume
                 icon: Pipewire.icon
+                colors: root.colors
             }
         }
     }
@@ -81,6 +83,7 @@ Item {
                 animationSpeed: root.animationSpeed
                 percentage: root.brightness / 100
                 icon: Brightness.icon
+                colors: root.colors
             }
         }
     }

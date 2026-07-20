@@ -9,31 +9,18 @@ Item {
     width: content.width
     height: parent.height
 
-    property real activeX: 0
-    property real activeY: 0
-    property real activeWidth: 0
-    property real activeHeight: 0
-
-    Rectangle {
-        id: rectangle
-        width: content.width
-        height: parent.height
-        anchors.centerIn: parent
-        color: Colors.surface
-        topLeftRadius: Global.defaultRadius
-        bottomLeftRadius: Global.defaultRadius
-    }
+    required property var colors
 
     Item {
         id: content
         anchors.centerIn: parent
-        width: row.width + Global.defaultRadius
+        width: row.width
         height: parent.height
 
         Row {
             id: row
             anchors.centerIn: parent
-            spacing: 5
+            spacing: 6
 
             Repeater {
                 model: 10
@@ -43,7 +30,7 @@ Item {
 
                     required property int index
 
-                    width: Math.max(Global.iconContainer, icons.width + Global.defaultRadius)
+                    width: Math.max(Global.iconContainer, icons.width)
                     height: Global.iconContainer
                     property int idx: index + 1
 
@@ -91,7 +78,7 @@ Item {
                         text: wsItem.idx
                         font.bold: wsItem.isActive
                         anchors.centerIn: parent
-                        color: Colors.font
+                        color: colors.font
                         font.pointSize: Global.fontSize
                     }
 
@@ -101,7 +88,7 @@ Item {
                         anchors.centerIn: parent
 
                         sourceComponent: Row {
-                            spacing: 1
+                            spacing: 3
                             Repeater {
                                 model: wsItem.toplevels
 

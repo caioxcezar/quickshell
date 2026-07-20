@@ -9,7 +9,7 @@ Item {
 
     property var window
 
-    width: outerRow.width + 5
+    width: outerRow.width
     height: Global.height
 
     Row {
@@ -25,8 +25,8 @@ Item {
                 id: item
                 required property var modelData
 
-                implicitWidth: 20
-                implicitHeight: 20
+                implicitWidth: Global.iconSize
+                implicitHeight: Global.iconSize
 
                 Image {
                     anchors.fill: parent

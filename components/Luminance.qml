@@ -42,8 +42,7 @@ Item {
             cropArea.grabToImage(result => {
                 const path = `/tmp/qs-bar-sample-${screen.name}.png`;
                 result.saveToFile(path);
-                quantizer.source = "";                 // force a refresh
-                quantizer.source = "file://" + path;
+                quantizer.source = `file://${path}`;
             });
         }
     }
@@ -61,9 +60,16 @@ Item {
             const c = quantizer.colors[0];
             const luminance = 0.299 * c.r + 0.587 * c.g + 0.114 * c.b;
             root.theme = luminance > 0.55 ? "light" : "dark";
+            Colors.screens[root.screen.name] = root.theme;
             PreLoading.luminanceLoaded = true;
         }
     }
 
-    Component.onCompleted: Qt.callLater(sampleLuminance)
+    Connections {
+        function onLockscreenLoadedChanged() {
+            if (PreLoading.lockscreenLoaded)
+                sampleLuminance();
+        }
+        target: PreLoading
+    }
 }

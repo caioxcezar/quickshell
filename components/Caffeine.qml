@@ -1,15 +1,16 @@
 import QtQuick
-import Quickshell
 import qs.components
 import qs.singletons
 
 Item {
+    id: root
     width: Global.iconContainer
     height: parent.height
+    required property var iconColor
 
     IconColored {
         source: Global.getIcon(Idle.onCaffeine ? "my-caffeine-on-symbolic" : "my-caffeine-off-symbolic")
-        iconColor: Colors.font
+        iconColor: root.iconColor
         anchors.centerIn: parent
     }
 

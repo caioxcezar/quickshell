@@ -1,59 +1,44 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import qs.components
-import qs.singletons
 
 Item {
     id: root
 
-    width: content.width
     height: parent.height
+    width: row.width + 6
 
     required property var window
+    property var colors: window.colors
 
-    Rectangle {
-        id: rect
-
-        width: content.width
-        height: parent.height
-        topRightRadius: Global.defaultRadius
-        bottomRightRadius: Global.defaultRadius
-        color: Colors.surface
-        anchors.centerIn: parent
-    }
-
-    Item {
-        id: content
+    Row {
+        id: row
 
         anchors.centerIn: parent
-        width: row.width + Global.defaultRadius
-        height: parent.height
+        spacing: 6
 
-        Row {
-            id: row
+        Tray {
+            window: root.window
+        }
 
-            anchors.centerIn: parent
-            spacing: 2
+        Caffeine {
+            iconColor: root.colors.font
+        }
 
-            Tray {
-                window: root.window
-            }
+        Sound {
+            iconColor: root.colors.font
+            anchors.verticalCenter: parent.verticalCenter
+        }
 
-            Caffeine {}
+        Battery {
+            iconColor: root.colors.font
+            anchors.verticalCenter: parent.verticalCenter
+        }
 
-            Sound {
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Battery {
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Power {
-                id: power
-
-                anchors.verticalCenter: parent.verticalCenter
-            }
+        Power {
+            id: power
+            iconColor: root.colors.font
+            anchors.verticalCenter: parent.verticalCenter
         }
     }
 }

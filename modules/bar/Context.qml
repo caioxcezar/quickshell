@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
 import qs.components
 import qs.singletons
 
@@ -11,16 +10,17 @@ Item {
     width: widget.width
     height: widget.height
 
-    Rectangle {
+    required property var window
+    property var colors: window.colors
+
+    Item {
         id: widget
         property bool actionPanel: false
         property bool actionNotification: false
         property bool actionMusic: false
 
         state: "Collapsed"
-        color: Colors.surface
         height: Global.height
-        radius: Global.defaultRadius
         states: [
             State {
                 name: "ExpandedPanel"
@@ -28,8 +28,6 @@ Item {
                 PropertyChanges {
                     target: widget
                     width: Panel.modal?.implicitWidth
-                    bottomRightRadius: 0
-                    bottomLeftRadius: 0
                     actionPanel: true
                     actionNotification: false
                     actionMusic: false
@@ -41,8 +39,6 @@ Item {
                 PropertyChanges {
                     target: widget
                     width: Notification.modal?.implicitWidth
-                    bottomRightRadius: 0
-                    bottomLeftRadius: 0
                     actionPanel: false
                     actionNotification: true
                     actionMusic: false
@@ -54,8 +50,6 @@ Item {
                 PropertyChanges {
                     target: widget
                     width: Notification.modal?.implicitWidth
-                    bottomRightRadius: 0
-                    bottomLeftRadius: 0
                     actionPanel: false
                     actionNotification: false
                     actionMusic: true
@@ -67,8 +61,6 @@ Item {
                 PropertyChanges {
                     target: widget
                     width: 300
-                    bottomRightRadius: Global.defaultRadius
-                    bottomLeftRadius: Global.defaultRadius
                     actionPanel: false
                     actionNotification: false
                     actionMusic: false
@@ -115,7 +107,7 @@ Item {
             IconColored {
                 id: music
                 source: Global.getIcon(Mpris.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
-                iconColor: Colors.font
+                iconColor: root.colors.font
                 Layout.alignment: Qt.AlignLeft
                 anchors.centerIn: parent
                 width: Global.iconSize
@@ -147,7 +139,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Text {
                 Layout.alignment: Qt.AlignVCenter
-                color: Colors.font
+                color: root.colors.font
                 text: Time.time
                 font.pointSize: Global.fontSize
             }
@@ -172,8 +164,8 @@ Item {
                 Text {
                     anchors.centerIn: parent
                     text: `${weather.current.temperature || ""}${weather.units.temperature || ""}`
-                    color: Colors.font
-                    style: Text.Outline
+                    color: root.colors.font
+                    style: `${this.color}` === Colors.fontLight ? Text.Normal : Text.Outline
 
                     font.pointSize: Global.fontSize
                 }
@@ -207,7 +199,7 @@ Item {
             IconColored {
                 id: notif
                 source: Global.getIcon(Notifications.isMuted ? "notifications-disabled-symbolic" : "notifications-symbolic")
-                iconColor: Colors.font
+                iconColor: root.colors.font
                 anchors.centerIn: parent
             }
 
