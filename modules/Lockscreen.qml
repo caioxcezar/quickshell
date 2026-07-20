@@ -14,15 +14,13 @@ import qs.modules.bar
 ShellRoot {
     id: root
 
-    property bool firstBoot: !Global.dev
-
     Timer {
-        interval: 1
+        interval: 1000
         repeat: false
         running: true
         onTriggered: {
             lock.locked = false;
-            root.firstBoot = false;
+            PreLoading.lockscreenLoaded = true;
         }
     }
 
@@ -249,7 +247,7 @@ ShellRoot {
                         }
                     }
 
-                    sourceComponent: pam.active || root.firstBoot ? loading : input
+                    sourceComponent: pam.active || !PreLoading.lockscreenLoaded ? loading : input
                 }
             }
         }
