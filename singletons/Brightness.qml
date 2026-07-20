@@ -53,51 +53,68 @@ Singleton {
     Process {
         id: processGetMaxBrightness
 
-        command: ["brightnessctl", "max"]
+        command: ["sh", "-c", `
+            brightnessctl --version >/dev/null 2>&1 &&
+            brightnessctl max`]
+
         running: true
 
         stdout: StdioCollector {
-            onStreamFinished: {
-                root.max = Number(this.text);
-            }
+            onStreamFinished: root.getText(this.text, text => root.max = Number(text))
         }
     }
 
     Process {
         id: processSetBrightness
 
-        command: ["brightnessctl", "set", `${root.percentage}%`]
+        command: ["sh", "-c", `
+            brightnessctl --version >/dev/null 2>&1 &&
+            brightnessctl set ${root.percentage}%`]
 
         stdout: StdioCollector {
-            onStreamFinished: {
-                root.percentage = Number(this.text);
-            }
+            onStreamFinished: root.getText(this.text, text => root.percentage = Number(text))
         }
     }
 
     Process {
         id: processGetBrightness
 
-        command: ["sh", "-c", "sleep 0.1 && brightnessctl get"]
+        command: ["sh", "-c", `
+            brightnessctl --version >/dev/null 2>&1 && sleep 0.1 &&
+            brightnessctl get`]
         running: true
 
         stdout: StdioCollector {
-            onStreamFinished: {
-                root.percentage = parseInt((Number(this.text) / root.max) * 100);
-            }
+            onStreamFinished: root.getText(this.text, text => root.percentage = root.getPercentage(text))
         }
     }
 
     Process {
         id: processSetIdleBrightness
 
-        command: ["brightnessctl", "get"]
+        command: ["sh", "-c", `
+            brightnessctl --version >/dev/null 2>&1 &&
+            brightnessctl get &&
+            brightnessctl set ${root.percentage}% >/dev/null 2>&1 &&
+            brightnessctl get`]
 
         stdout: StdioCollector {
-            onStreamFinished: {
-                root._idleBkpValue = Number(this.text);
-                processSetBrightness.running = true;
-            }
+            onStreamFinished: root.getText(this.text, text => {
+                const [before, after] = this.text.split('\n');
+                root._idleBkpValue = Number(before);
+                root.percentage = getPercentage(after);
+            })
         }
+    }
+
+    function getPercentage(value) {
+        return parseInt((Number(value) / root.max) * 100);
+    }
+
+    function getText(text, callback) {
+        const value = (text || '').trim();
+        if (!text)
+            return;
+        callback(value);
     }
 }
