@@ -4,6 +4,7 @@ import Quickshell
 import Quickshell.Wayland
 import qs.modules.bar
 import qs.singletons
+import qs.components
 
 Scope {
     Variants {
@@ -38,24 +39,33 @@ Scope {
                 Idle.window = panelWindow;
             }
 
-            Rectangle {
+            Luminance {
+                screen: panelWindow.modelData
+            }
+
+            Loader {
                 anchors.fill: parent
-                color: Colors.background
-                radius: 15
+                active: PreLoading.finished
 
-                LeftBar {
-                    window: panelWindow
-                    anchors.left: parent.left
-                }
+                sourceComponent: Rectangle {
+                    anchors.fill: parent
+                    color: Colors.background
+                    radius: 15
 
-                Context {
-                    anchors.centerIn: parent
-                }
+                    LeftBar {
+                        window: panelWindow
+                        anchors.left: parent.left
+                    }
 
-                RightBar {
-                    id: rightBar
-                    window: panelWindow
-                    anchors.right: parent.right
+                    Context {
+                        anchors.centerIn: parent
+                    }
+
+                    RightBar {
+                        id: rightBar
+                        window: panelWindow
+                        anchors.right: parent.right
+                    }
                 }
             }
         }
