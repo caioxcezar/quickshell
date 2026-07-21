@@ -90,6 +90,8 @@ Item {
             NotificationView {
                 id: notfiView
 
+                colors: root.colors
+
                 opacity: root.contentOpacity
                 notification: Notification.message
                 interactable: root.interactable

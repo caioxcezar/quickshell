@@ -1,7 +1,6 @@
 pragma ComponentBehavior: Bound
 import QtQuick.Controls
 import QtQuick
-import Quickshell
 import Quickshell.Widgets
 import Qt5Compat.GraphicalEffects
 import qs.singletons
