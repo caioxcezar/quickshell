@@ -70,7 +70,7 @@ Item {
     }
 
     Loader {
-        active: Global.brightnessContextVisibility
+        active: Global.brightnessContextVisibility && Brightness.max > 0
         anchors.fill: parent
 
         sourceComponent: Item {
