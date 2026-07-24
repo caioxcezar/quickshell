@@ -1,7 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
-import Quickshell
 import Quickshell.Widgets
+import Qt5Compat.GraphicalEffects
 import qs.singletons
 
 Item {
@@ -58,21 +58,6 @@ Item {
                         return toplevels;
                     }
 
-                    Rectangle {
-                        id: highlight
-                        anchors.centerIn: parent
-                        width: Math.max(Global.iconContainer, icons.width + 10)
-                        height: Global.iconContainer
-                        radius: 10
-                        color: {
-                            if (wsItem.isActive)
-                                return "transparent";
-                            if (wsItem.isUrgent)
-                                return "#a83232";
-                            return "transparent";
-                        }
-                    }
-
                     Text {
                         visible: !wsItem.toplevels.length
                         text: wsItem.idx
@@ -88,7 +73,7 @@ Item {
                         anchors.centerIn: parent
 
                         sourceComponent: Row {
-                            spacing: 3
+                            spacing: 1
                             Repeater {
                                 model: wsItem.toplevels
 
@@ -98,7 +83,12 @@ Item {
                                     width: Global.iconSize
                                     height: Global.iconSize
 
-                                    source: Global.getIcon(modelData.lastIpcObject?.class ?? "", "image-missing")
+                                    source: Global.getIcon(modelData.lastIpcObject?.class ?? "", "application-x-executable")
+
+                                    layer.enabled: modelData.urgent
+                                    layer.effect: ColorOverlay {
+                                        color: '#c4ff6b6b'
+                                    }
                                 }
                             }
                         }

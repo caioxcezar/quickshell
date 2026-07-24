@@ -95,7 +95,6 @@ Item {
                 opacity: root.contentOpacity
                 notification: Notification.message
                 interactable: root.interactable
-                fontColor: root.colors.font
 
                 Connections {
                     function onOpacityChanged() {
