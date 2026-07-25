@@ -31,7 +31,7 @@ ListView {
 
         Text {
             width: root.width
-            text: Qt.formatDateTime(new Date(item.modelData.year, item.modelData.month, 1), "MMMM yyyy")
+            text: `${Qt.locale().monthName(parent.modelData.month)} ${parent.modelData.year}`
             font.pointSize: Global.fontTitle
             color: root.colors.font
         }
@@ -72,8 +72,8 @@ ListView {
                     anchors.centerIn: parent
                     width: Math.min(parent.width, parent.height)
                     height: width
-                    radius: width / 2
-                    color: parent.model.today ? root.colors.error : "transparent"
+                    radius: width / 4
+                    color: parent.model.today ? root.colors.primary : "transparent"
                 }
 
                 Text {
@@ -81,10 +81,10 @@ ListView {
                     anchors.centerIn: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    opacity: parent.model.month === grid.month ? 1 : 0
-                    text: grid.locale.toString(parent.model.date, "d")
+                    opacity: parent.model.month === grid.month ? 1 : 0.5
+                    text: parent.model.day
                     font.pointSize: Global.fontSize
-                    color: root.colors.font
+                    color: parent.model.date.getDay() === grid.locale.firstDayOfWeek ? root.colors.error : root.colors.font
                 }
             }
         }

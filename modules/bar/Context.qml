@@ -144,33 +144,7 @@ Item {
                 font.pointSize: Global.fontSize
             }
 
-            Item {
-                id: weather
-                property var current: Weather.current ?? new Object()
-                property var units: Weather.currentUnits ?? new Object()
-
-                width: Global.iconContainer
-                height: Global.iconContainer
-                Layout.alignment: Qt.AlignVCenter
-
-                Icon {
-                    id: weatherIcon
-                    anchors.centerIn: parent
-                    source: Global.getIcon(weather.current.icon, "")
-                    width: 48
-                    height: 48
-                }
-
-                Text {
-                    anchors.centerIn: parent
-                    text: `${weather.current.temperature || ""}${weather.units.temperature || ""}`
-                    color: root.colors.font
-                    style: `${this.color}` === Colors.fontLight ? Text.Normal : Text.Outline
-
-                    font.pointSize: Global.fontSize
-                }
-                visible: weatherIcon.status === Image.Ready
-            }
+            WeatherIcon { colors: root.colors }
 
             TapHandler {
                 acceptedButtons: Qt.LeftButton

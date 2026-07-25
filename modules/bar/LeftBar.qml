@@ -18,7 +18,7 @@ Item {
         spacing: 6
         height: parent.height
 
-        Menu {}
+        // Menu {}
 
         Loader {
             readonly property Component hyprland: HyprWorkspaces {

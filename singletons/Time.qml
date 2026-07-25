@@ -5,7 +5,7 @@ pragma Singleton
 Singleton {
     id: root
 
-    readonly property string time: Qt.formatDateTime(clock.date, "ddd MMM d HH:mm yyyy")
+    readonly property string time: Qt.locale().toString(clock.date, "ddd d MMM yyyy HH:mm")
     readonly property int year: clock.date.getFullYear()
     readonly property int month: clock.date.getMonth()
     readonly property int day: clock.date.getDay()
