@@ -9,10 +9,9 @@ Column {
     id: root
 
     required property var notification
-    required property var colors
 
     property bool interactable: true
-    property string fontColor: root.colors.font
+    property string fontColor: Colors.primaryText
     property var actions: []
     property var action: null
 
@@ -70,8 +69,8 @@ Column {
             height: parent.height
             iconSize: 12
             iconSource: Global.getIcon("view-close", true)
-            iconColor: root.colors.font
-            background: root.colors.primary
+            iconColor: Colors.primaryText
+            background: Colors.primary
             visible: root.interactable
 
             TapHandler {
@@ -125,7 +124,7 @@ Column {
                 font.bold: true
                 width: parent.width
                 elide: Text.ElideRight
-                font.pointSize: Global.fontSubtitle
+                font.pointSize: Styles.fontSubtitle
             }
 
             Text {
@@ -135,7 +134,7 @@ Column {
                 color: root.fontColor
                 wrapMode: Text.WordWrap
                 width: parent.width
-                font.pointSize: Global.fontSize
+                font.pointSize: Styles.fontSize
             }
         }
     }
@@ -153,15 +152,15 @@ Column {
         width: parent.width
         height: 40
         placeholderText: "Reply message..."
-        placeholderTextColor: root.colors.font
-        color: root.colors.font
+        placeholderTextColor: Colors.primaryText
+        color: Colors.primaryText
         Keys.onReturnPressed: root.notification.sendInlineReply(textInline.text)
         Component.onCompleted: {
             textInline.text = "";
         }
 
         background: Rectangle {
-            color: root.colors.surface
+            color: Colors.surfaceVariant
             radius: 8
         }
     }
@@ -184,7 +183,7 @@ Column {
                 height: actionLabel.implicitHeight + 10
                 width: actionLabel.implicitWidth + 16
                 anchors.verticalCenter: parent.verticalCenter
-                color: root.colors.primary
+                color: Colors.primary
                 radius: 4
 
                 Text {
@@ -192,8 +191,8 @@ Column {
 
                     anchors.centerIn: parent
                     text: parent.modelData.text
-                    color: root.colors.font
-                    font.pointSize: Global.fontSize
+                    color: Colors.primaryText
+                    font.pointSize: Styles.fontSize
                 }
 
                 TapHandler {
@@ -214,7 +213,7 @@ Column {
 
         anchors.right: parent.right
         color: root.fontColor
-        font.pointSize: Global.fontSmall
+        font.pointSize: Styles.fontSmall
 
         function calcDifference(start, end) {
             const difference = start - end;

@@ -6,7 +6,6 @@ import qs.components
 Row {
     id: root
 
-    required property var colors
     property var current: Weather.current ?? new Object()
     property var units: Weather.currentUnits ?? new Object()
 
@@ -15,15 +14,15 @@ Row {
     Icon {
         id: weatherIcon
         source: Global.getIcon(root.current.icon, "")
-        width: Global.iconSize
-        height: Global.iconSize
+        width: Styles.iconSize
+        height: Styles.iconSize
     }
 
     Text {
         text: `${root.current.temperature || ""}${root.units.temperature || ""}`
-        color: root.colors.font
+        color: Colors.primaryText
 
-        font.pointSize: Global.fontSize
+        font.pointSize: Styles.fontSize
     }
     visible: weatherIcon.status === Image.Ready
 }

@@ -4,18 +4,21 @@ import Quickshell
 import Quickshell.Services.SystemTray
 import qs.singletons
 
-Item {
+Rectangle {
     id: root
 
     property var window
 
-    width: outerRow.width
-    height: Global.height
+    width: outerRow.width + Styles.horizontalMargin
+    height: Styles.height
+
+    color: Colors.secondary
+    radius: Styles.defaultRadius
 
     Row {
         id: outerRow
 
-        spacing: 6
+        spacing: Styles.margin
         anchors.centerIn: parent
 
         Repeater {
@@ -25,14 +28,14 @@ Item {
                 id: item
                 required property var modelData
 
-                implicitWidth: Global.iconSize
-                implicitHeight: Global.iconSize
+                implicitWidth: Styles.iconSize
+                implicitHeight: Styles.iconSize
 
                 Image {
                     anchors.fill: parent
                     source: item.modelData.icon
-                    width: Global.iconSize
-                    height: Global.iconSize
+                    width: Styles.iconSize
+                    height: Styles.iconSize
                     sourceSize.width: width
                     sourceSize.height: height
                     layer.enabled: true

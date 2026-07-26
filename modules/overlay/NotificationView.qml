@@ -7,7 +7,6 @@ Item {
     id: root
 
     required property int animationSpeed
-    required property var colors
     property int contentOpacity: 0
     property bool interactable: true
 
@@ -62,7 +61,7 @@ Item {
         // qmllint enable missing-property
         height: 2
         width: 0
-        color: root.colors.font
+        color: Colors.primaryText
 
         NumberAnimation {
             id: progressAnimation
@@ -83,14 +82,12 @@ Item {
         sourceComponent: Rectangle {
             anchors.fill: parent
             clip: true
-            color: root.colors.background
+            color: Colors.surface
             bottomRightRadius: 10
             bottomLeftRadius: 10
 
             NotificationView {
                 id: notfiView
-
-                colors: root.colors
 
                 opacity: root.contentOpacity
                 notification: Notification.message

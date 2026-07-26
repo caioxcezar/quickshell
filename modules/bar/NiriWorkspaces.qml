@@ -9,7 +9,6 @@ Item {
     height: parent.height
 
     required property var screen
-    required property var colors
 
     property real activeX: 0
     property real activeY: 0
@@ -21,20 +20,20 @@ Item {
         width: content.width
         height: parent.height
         anchors.centerIn: parent
-        color: root.colors.surface
-        topLeftRadius: Global.defaultRadius
-        bottomLeftRadius: Global.defaultRadius
+        color: Colors.surfaceVariant
+        topLeftRadius: Styles.defaultRadius
+        bottomLeftRadius: Styles.defaultRadius
         Rectangle {
-            radius: Global.defaultRadius
+            radius: Styles.defaultRadius
             x: root.activeX
             y: root.activeY
             width: root.activeWidth
             height: root.activeHeight
-            color: root.colors.primary
+            color: Colors.primary
 
             Behavior on x {
                 NumberAnimation {
-                    duration: Global.animationSpeed
+                    duration: Styles.animationSpeed
                 }
             }
         }
@@ -43,7 +42,7 @@ Item {
     Item {
         id: content
         anchors.centerIn: parent
-        width: row.width + Global.defaultRadius
+        width: row.width + Styles.defaultRadius
         height: parent.height
 
         Row {
@@ -59,8 +58,8 @@ Item {
 
                     required property var modelData
 
-                    width: Math.max(Global.iconContainer, icons.width + Global.defaultRadius)
-                    height: Global.iconContainer
+                    width: Math.max(Styles.iconContainer, icons.width + Styles.defaultRadius)
+                    height: Styles.iconContainer
                     property int idx: modelData.idx
 
                     property bool isActive: modelData.is_focused
@@ -89,8 +88,8 @@ Item {
                     Rectangle {
                         id: highlight
                         anchors.centerIn: parent
-                        width: Math.max(Global.iconContainer, icons.width + 10)
-                        height: Global.iconContainer
+                        width: Math.max(Styles.iconContainer, icons.width + 10)
+                        height: Styles.iconContainer
                         radius: 10
                         color: {
                             if (wsItem.isActive)
@@ -112,8 +111,8 @@ Item {
                         text: wsItem.idx
                         font.bold: wsItem.isActive
                         anchors.centerIn: parent
-                        color: wsItem.isActive ? root.colors.surface : root.colors.font
-                        font.pointSize: Global.fontSize
+                        color: wsItem.isActive ? Colors.surfaceVariant : Colors.primaryText
+                        font.pointSize: Styles.fontSize
                     }
 
                     Row {
@@ -126,8 +125,8 @@ Item {
                             IconImage {
                                 required property var modelData
 
-                                width: Global.iconSize
-                                height: Global.iconSize
+                                width: Styles.iconSize
+                                height: Styles.iconSize
 
                                 source: Global.getIcon(modelData.app_id ?? "", "image-missing")
                             }

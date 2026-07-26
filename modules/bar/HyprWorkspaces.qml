@@ -6,97 +6,89 @@ import qs.singletons
 
 Item {
     id: root
-    width: content.width
+    anchors.centerIn: parent
+    width: row.width
     height: parent.height
 
-    required property var colors
-
-    Item {
-        id: content
+    Row {
+        id: row
         anchors.centerIn: parent
-        width: row.width
-        height: parent.height
+        spacing: Styles.margin
 
-        Row {
-            id: row
-            anchors.centerIn: parent
-            spacing: 6
+        Repeater {
+            model: 10
 
-            Repeater {
-                model: 10
+            Item {
+                id: wsItem
 
-                Item {
-                    id: wsItem
+                required property int index
 
-                    required property int index
+                width: Math.max(Styles.iconContainer, icons.width)
+                height: Styles.iconContainer
+                property int idx: index + 1
 
-                    width: Math.max(Global.iconContainer, icons.width)
-                    height: Global.iconContainer
-                    property int idx: index + 1
+                property var ws: Hypr.workspaces.find(w => w.id === idx)
+                property bool isActive: Boolean(ws?.focused)
+                opacity: isActive ? 1 : 0.5
 
-                    property var ws: Hypr.workspaces.find(w => w.id === idx)
-                    property bool isActive: Boolean(ws?.focused)
-                    opacity: isActive ? 1 : 0.5
-
-                    Behavior on opacity {
-                        NumberAnimation {
-                            duration: Global.animationSpeed
-                        }
+                Behavior on opacity {
+                    NumberAnimation {
+                        duration: Styles.animationSpeed
                     }
+                }
 
-                    property bool isUrgent: Boolean(ws?.urgent)
-                    property var toplevels: {
-                        const map = new Set();
-                        const toplevels = (ws?.toplevels?.values ?? []).filter(toplevel => {
-                            const {
-                                pid,
-                                title
-                            } = toplevel.lastIpcObject;
-                            return !title || map.has(pid) ? false : map.add(pid);
-                        });
+                property bool isUrgent: Boolean(ws?.urgent)
+                property var toplevels: {
+                    const map = new Set();
+                    const toplevels = (ws?.toplevels?.values ?? []).filter(toplevel => {
+                        const {
+                            pid,
+                            title
+                        } = toplevel.lastIpcObject;
+                        return !title || map.has(pid) ? false : map.add(pid);
+                    });
 
-                        return toplevels;
-                    }
+                    return toplevels;
+                }
 
-                    Text {
-                        visible: !wsItem.toplevels.length
-                        text: wsItem.idx
-                        font.bold: wsItem.isActive
-                        anchors.centerIn: parent
-                        color: colors.font
-                        font.pointSize: Global.fontSize
-                    }
+                Text {
+                    visible: !wsItem.toplevels.length
+                    text: wsItem.idx
+                    font.bold: wsItem.isActive
+                    anchors.centerIn: parent
+                    color: Colors.primaryText
+                    font.pointSize: Styles.fontSize
+                }
 
-                    Loader {
-                        id: icons
-                        active: Boolean(wsItem.ws)
-                        anchors.centerIn: parent
+                Loader {
+                    id: icons
+                    active: Boolean(wsItem.ws)
+                    anchors.centerIn: parent
 
-                        sourceComponent: Row {
-                            spacing: 1
-                            Repeater {
-                                model: wsItem.toplevels
+                    sourceComponent: Row {
+                        spacing: 1
+                        Repeater {
+                            model: wsItem.toplevels
 
-                                IconImage {
-                                    required property var modelData
+                            IconImage {
+                                required property var modelData
 
-                                    width: Global.iconSize
-                                    height: Global.iconSize
+                                width: Styles.iconSize
+                                height: Styles.iconSize
 
-                                    source: Global.getIcon(modelData.lastIpcObject?.class ?? "", "application-x-executable")
+                                source: Global.getIcon(modelData.lastIpcObject?.class ?? "", "application-x-executable")
 
-                                    layer.enabled: modelData.urgent
-                                    layer.effect: ColorOverlay {
-                                        color: '#c4ff6b6b'
-                                    }
+                                layer.enabled: modelData.urgent
+                                layer.effect: ColorOverlay {
+                                    color: '#c4ff6b6b'
                                 }
                             }
                         }
                     }
+                }
 
-                    TapHandler {
-                        onTapped: Hypr.goToWorspace(wsItem.idx)
-                    }
+                TapHandler {
+                    onTapped: Hypr.goToWorspace(wsItem.idx)
                 }
             }
         }

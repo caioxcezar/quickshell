@@ -9,7 +9,6 @@ Column {
     spacing: 6
 
     required property var music
-    required property var colors
     property real percentage: music.position >= music.length ? 1 : Number((music.position / music.length).toFixed(2))
     property string imageSrc: Mpris.getTrackArtUrl(music)
 
@@ -26,7 +25,7 @@ Column {
     }
 
     Row {
-        spacing: 8
+        spacing: Styles.margin
         width: parent.width
 
         Image {
@@ -56,17 +55,17 @@ Column {
 
             Text {
                 text: root.music.trackTitle
-                color: root.colors.font
+                color: Colors.primaryText
                 font.bold: true
-                font.pointSize: Global.fontSize
+                font.pointSize: Styles.fontSize
                 width: parent.width
                 elide: Text.ElideRight
             }
 
             Text {
                 text: root.music.trackArtist
-                color: root.colors.font
-                font.pointSize: Global.fontSize
+                color: Colors.primaryText
+                font.pointSize: Styles.fontSize
                 wrapMode: Text.WordWrap
                 width: parent.width
             }
@@ -86,8 +85,8 @@ Column {
 
                 sourceComponent: IconRounded {
                     iconSource: Global.getIcon("media-skip-backward")
-                    iconColor: root.colors.font
-                    background: root.colors.primary
+                    iconColor: Colors.secondaryText
+                    background: Colors.secondary
 
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
@@ -100,7 +99,8 @@ Column {
                 id: icon
 
                 iconSource: Global.getIcon(root.music.isPlaying ? "media-playback-pause" : "media-playback-start")
-                iconColor: root.colors.font
+                background: Colors.primary
+                iconColor: Colors.primaryText
 
                 TapHandler {
                     acceptedButtons: Qt.LeftButton
@@ -113,7 +113,8 @@ Column {
 
                 sourceComponent: IconRounded {
                     iconSource: Global.getIcon("media-skip-forward")
-                    iconColor: root.colors.font
+                    iconColor: Colors.secondaryText
+                    background: Colors.secondary
 
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
@@ -130,7 +131,7 @@ Column {
 
                 Rectangle {
                     width: parent.width
-                    color: root.colors.primary
+                    color: Colors.primary
                     height: 10
                     radius: 10
                     anchors.verticalCenter: parent.verticalCenter
@@ -139,7 +140,7 @@ Column {
                         id: progressBar
 
                         width: parent.width * root.percentage
-                        color: root.colors.font
+                        color: Colors.primaryText
                         height: 10
                         radius: 10
                         anchors.left: parent.left

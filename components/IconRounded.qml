@@ -9,10 +9,10 @@ Rectangle {
     property string iconColor
     property string background
 
-    property int iconSize: Global.iconSize
+    property int iconSize: Styles.iconSize
 
-    width: Global.iconContainer
-    height: Global.iconContainer
+    width: Styles.iconContainer
+    height: Styles.iconContainer
     color: root.background
     radius: 10
 

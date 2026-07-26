@@ -40,7 +40,7 @@ Item {
                 text: `${(row.percentage * 100).toFixed(0)}%`
                 color: root.iconColor
                 anchors.verticalCenter: parent.verticalCenter
-                font.pointSize: Global.fontSize
+                font.pointSize: Styles.fontSize
             }
         }
     }

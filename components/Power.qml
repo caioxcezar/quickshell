@@ -7,21 +7,20 @@ Item {
 
     required property var iconColor
 
-    width: Global.iconContainer
-    height: Global.iconContainer
+    width: Styles.iconContainer
+    height: Styles.iconContainer
 
-    IconColored {
-        source: Global.getIcon("system-shutdown-symbolic")
-        iconColor: root.iconColor
+    Icon {
+        source: Global.getIcon("system-shutdown")
         anchors.centerIn: parent
-        width: Global.iconSize
-        height: Global.iconSize
+        width: Styles.iconSize
+        height: Styles.iconSize
     }
 
     TapHandler {
         acceptedButtons: Qt.LeftButton
         onTapped: {
-            Global.powerVisibility = !Global.powerVisibility;
+            AppState.powerVisibility = !AppState.powerVisibility;
         }
     }
 }

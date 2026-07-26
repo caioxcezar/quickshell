@@ -15,7 +15,7 @@ ShellRoot {
     id: root
 
     Timer {
-        interval: 500
+        interval: 1
         repeat: false
         running: true
         onTriggered: {
@@ -36,12 +36,11 @@ ShellRoot {
     WlSessionLock {
         id: lock
 
-        locked: !Global.dev
+        locked: !AppState.dev
 
         WlSessionLockSurface {
             id: surface
 
-            property var colors: Colors.getColorsByScreen(surface.screen.name)
             color: "transparent"
 
             ScreencopyView {
@@ -73,7 +72,7 @@ ShellRoot {
                         // Both needs to change because of the lockscreen shortcut
                         Idle.isLocked = false;
                         lock.locked = false;
-                        Global.powerVisibility = false;
+                        AppState.powerVisibility = false;
                     }
                 }
                 onPamMessage: {
@@ -102,20 +101,20 @@ ShellRoot {
                 RightBar {
                     id: tray
                     window: root
-                    height: Global.height
+                    height: Styles.height
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
                 }
 
                 Column {
                     id: powerMenu
-                    opacity: Global.powerVisibility && Idle.isLocked ? 1 : 0
+                    opacity: AppState.powerVisibility && Idle.isLocked ? 1 : 0
                     Layout.fillWidth: true
                     Layout.fillHeight: true
                     spacing: 10
 
                     Repeater {
                         width: parent.width
-                        model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
+                        model: Global.powerCommands.filter(cm => !cm.for || cm.for == AppState.compositor)
 
                         Column {
                             id: item
@@ -124,8 +123,8 @@ ShellRoot {
                             Text {
                                 anchors.horizontalCenter: parent.horizontalCenter
                                 text: item.modelData.title
-                                color: surface.colors.font
-                                font.pointSize: Global.fontTitle
+                                color: Colors.primaryText
+                                font.pointSize: Styles.fontTitle
                                 font.bold: true
                             }
                             Icon {
@@ -155,7 +154,7 @@ ShellRoot {
 
                     Behavior on opacity {
                         NumberAnimation {
-                            duration: Global.animationSpeed
+                            duration: Styles.animationSpeed
                         }
                     }
                 }
@@ -168,8 +167,6 @@ ShellRoot {
                 anchors.bottom: parent.bottom
 
                 PlayerList {
-                    colors: surface.colors
-
                     verticalLayoutDirection: ListView.BottomToTop
 
                     header: Item {
@@ -194,16 +191,16 @@ ShellRoot {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: Time.time
-                            color: surface.colors.font
-                            font.pointSize: Global.fontTitle
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontTitle
                             font.bold: true
                         }
 
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "Screen Locked"
-                            color: surface.colors.font
-                            font.pointSize: Global.fontTitle
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontTitle
                             font.bold: true
                         }
 
@@ -215,9 +212,9 @@ ShellRoot {
                             width: 300
                             height: 40
                             placeholderText: "Enter password..."
-                            placeholderTextColor: surface.colors.font
+                            placeholderTextColor: Colors.primaryText
                             echoMode: TextInput.Password
-                            color: surface.colors.font
+                            color: Colors.primaryText
                             Keys.onReturnPressed: {
                                 pam.user = Qt.binding(() => {
                                     return Quickshell.env("USER");
@@ -234,7 +231,7 @@ ShellRoot {
                             }
 
                             background: Rectangle {
-                                color: surface.colors.surface
+                                color: Colors.surfaceVariant
                                 radius: 8
                             }
                         }
@@ -244,8 +241,8 @@ ShellRoot {
 
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: "Incorrect password"
-                            color: surface.colors.error
-                            font.pointSize: Global.fontSubtitle
+                            color: Colors.error
+                            font.pointSize: Styles.fontSubtitle
                             visible: pam.error
                         }
                     }

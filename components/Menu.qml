@@ -4,15 +4,15 @@ import qs.components
 import qs.singletons
 
 Item {
-    width: Global.iconContainer
-    height: Global.iconContainer
+    width: Styles.iconContainer
+    height: Styles.iconContainer
     anchors.verticalCenter: parent.verticalCenter
 
     Icon {
         source: Global.getIcon("distributor-logo-archlinux", "application-menu")
         anchors.centerIn: parent
-        width: Global.iconSize
-        height: Global.iconSize
+        width: Styles.iconSize
+        height: Styles.iconSize
     }
 
     TapHandler {

@@ -11,7 +11,6 @@ Item {
     height: widget.height
 
     required property var window
-    property var colors: window.colors
 
     Item {
         id: widget
@@ -20,7 +19,7 @@ Item {
         property bool actionMusic: false
 
         state: "Collapsed"
-        height: Global.height
+        height: Styles.height
         states: [
             State {
                 name: "ExpandedPanel"
@@ -86,7 +85,7 @@ Item {
 
             PropertyAnimation {
                 properties: "width,bottomRightRadius,bottomLeftRadius"
-                duration: Global.animationSpeed / 2
+                duration: Styles.animationSpeed / 2
                 easing.type: Easing.OutCubic
             }
         }
@@ -95,23 +94,24 @@ Item {
     RowLayout {
         id: content
         height: parent.height
-        width: widget.width - 10
+        width: widget.width
         anchors.centerIn: parent
-        spacing: 5
+        spacing: Styles.margin
 
         Item {
 
-            width: Global.iconContainer
-            height: Global.iconContainer
+            width: Styles.iconContainer
+            height: Styles.iconContainer
 
-            IconColored {
+            IconRounded {
                 id: music
-                source: Global.getIcon(Mpris.isPlaying ? "media-playback-pause-symbolic" : "media-playback-start-symbolic")
-                iconColor: root.colors.font
+                iconSource: Global.getIcon(Mpris.isPlaying ? "media-playback-pause" : "media-playback-start")
+                iconColor: Colors.primaryText
+                background: Colors.primary
                 Layout.alignment: Qt.AlignLeft
                 anchors.centerIn: parent
-                width: Global.iconSize
-                height: Global.iconSize
+                width: Styles.iconContainer
+                height: Styles.iconContainer
 
                 TapHandler {
                     acceptedButtons: Qt.LeftButton
@@ -135,16 +135,16 @@ Item {
         }
 
         RowLayout {
-            spacing: 15
+            spacing: Styles.margin
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Text {
                 Layout.alignment: Qt.AlignVCenter
-                color: root.colors.font
+                color: Colors.primaryText
                 text: Time.time
-                font.pointSize: Global.fontSize
+                font.pointSize: Styles.fontSize
             }
 
-            WeatherIcon { colors: root.colors }
+            WeatherIcon {}
 
             TapHandler {
                 acceptedButtons: Qt.LeftButton
@@ -166,14 +166,17 @@ Item {
         }
 
         Item {
-            width: Global.iconContainer
-            height: Global.iconContainer
+            width: Styles.iconContainer
+            height: Styles.iconContainer
             Layout.alignment: Qt.AlignRight
 
-            IconColored {
+            IconRounded {
                 id: notif
-                source: Global.getIcon(Notifications.isMuted ? "notifications-disabled-symbolic" : "notifications-symbolic")
-                iconColor: root.colors.font
+                iconSource: Global.getIcon(Notifications.isMuted ? "notifications-disabled" : "notifications")
+                background: Colors.primary
+                iconColor: Colors.primaryText
+                width: Styles.iconSize
+                height: Styles.iconSize
                 anchors.centerIn: parent
             }
 

@@ -9,7 +9,6 @@ Item {
 
     property int contentOpacity: 0
     required property int animationSpeed
-    required property var colors
 
     visible: false
     implicitWidth: 300
@@ -49,12 +48,11 @@ Item {
 
         sourceComponent: Rectangle {
             anchors.fill: parent
-            color: root.colors.background
-            bottomRightRadius: Global.defaultRadius
-            bottomLeftRadius: Global.defaultRadius
+            color: Colors.surface
+            bottomRightRadius: Styles.defaultRadius
+            bottomLeftRadius: Styles.defaultRadius
 
             PlayerList {
-                colors: root.colors
                 opacity: root.contentOpacity
 
                 header: Rectangle {

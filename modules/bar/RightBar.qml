@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import qs.components
+import qs.singletons
 
 Item {
     id: root
@@ -9,35 +10,34 @@ Item {
     width: row.width + 6
 
     required property var window
-    property var colors: window.colors
 
     Row {
         id: row
 
         anchors.centerIn: parent
-        spacing: 6
+        spacing: Styles.margin
 
         Tray {
             window: root.window
         }
 
         Caffeine {
-            iconColor: root.colors.font
+            iconColor: Colors.primaryText
         }
 
         Sound {
-            iconColor: root.colors.font
+            iconColor: Colors.primaryText
             anchors.verticalCenter: parent.verticalCenter
         }
 
         Battery {
-            iconColor: root.colors.font
+            iconColor: Colors.primaryText
             anchors.verticalCenter: parent.verticalCenter
         }
 
         Power {
             id: power
-            iconColor: root.colors.font
+            iconColor: Colors.primaryText
             anchors.verticalCenter: parent.verticalCenter
         }
     }

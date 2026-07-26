@@ -8,8 +8,8 @@ import qs.modules.overlay
 PanelWindow {
     id: root
 
-    visible: Panel.isOpen || MusicPlayer.isOpen || Pipewire.isOpen || Notification.isOpen || Global.volumeContextVisibility || Global.brightnessContextVisibility
-    property int animationSpeed: Global.animationSpeed / 2
+    visible: Panel.isOpen || MusicPlayer.isOpen || Pipewire.isOpen || Notification.isOpen || AppState.volumeContextVisibility || AppState.brightnessContextVisibility
+    property int animationSpeed: Styles.animationSpeed / 2
 
     anchors {
         bottom: true
@@ -22,36 +22,29 @@ PanelWindow {
     WlrLayershell.namespace: "quickshell:overlay"
     WlrLayershell.keyboardFocus: Panel.isOpen ? WlrKeyboardFocus.OnDemand : WlrKeyboardFocus.None
 
-    property var colors: Colors.getColorsByScreen(root.screen.name)
-
     PanelView {
         id: panel
         animationSpeed: root.animationSpeed
-        colors: root.colors
     }
 
     MusicPlayerView {
         id: musicPlayer
         animationSpeed: root.animationSpeed
-        colors: root.colors
     }
 
     SoundView {
         id: sound
         animationSpeed: root.animationSpeed
-        colors: root.colors
     }
 
     NotificationView {
         id: notification
         animationSpeed: root.animationSpeed
-        colors: root.colors
     }
 
     ContextView {
         id: context
         animationSpeed: root.animationSpeed
-        colors: root.colors
     }
 
     MouseArea {
@@ -70,5 +63,5 @@ PanelWindow {
     Region {
         id: region
     }
-    mask: Global.brightnessContextVisibility || Global.volumeContextVisibility || Notification.isOpen ? region : null
+    mask: AppState.brightnessContextVisibility || AppState.volumeContextVisibility || Notification.isOpen ? region : null
 }

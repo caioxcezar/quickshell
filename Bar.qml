@@ -4,7 +4,6 @@ import Quickshell
 import Quickshell.Wayland
 import qs.modules.bar
 import qs.singletons
-import qs.components
 
 Scope {
     Variants {
@@ -18,10 +17,8 @@ Scope {
 
             WlrLayershell.namespace: "quickshell:bar"
             screen: modelData
-            implicitHeight: Global.height
-            color: "transparent"
-
-            property var colors: Colors.getColorsByTheme(luminance.theme)
+            implicitHeight: Styles.height
+            color: Colors.surface
 
             anchors {
                 top: true
@@ -31,11 +28,6 @@ Scope {
 
             Component.onCompleted: {
                 Idle.window = panelWindow;
-            }
-
-            Luminance {
-                id: luminance
-                screen: panelWindow.modelData
             }
 
             Loader {

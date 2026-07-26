@@ -65,7 +65,7 @@ Item {
 
                 text: `${(root.output.audio.volume * 100).toFixed(0)}%`
                 color: root.iconColor
-                font.pointSize: Global.fontSize
+                font.pointSize: Styles.fontSize
                 anchors.verticalCenter: parent.verticalCenter
             }
         }

@@ -7,13 +7,12 @@ Item {
     id: root
 
     required property int animationSpeed
-    required property var colors
 
     property var output: Pipewire.output
     property real volume: output?.audio.volume ?? 0
     property var brightness: Brightness.percentage
 
-    visible: Global.volumeContextVisibility || Global.brightnessContextVisibility
+    visible: AppState.volumeContextVisibility || AppState.brightnessContextVisibility
 
     function delay(ms, callback) {
         delayTimer.interval = ms;
@@ -25,20 +24,20 @@ Item {
         function onVolumeChanged() {
             if (Pipewire.isOpen)
                 return;
-            Global.volumeContextVisibility = true;
+            AppState.volumeContextVisibility = true;
             delayTimer.stop();
             root.delay(1500, () => {
-                Global.volumeContextVisibility = false;
+                AppState.volumeContextVisibility = false;
             });
         }
 
         function onBrightnessChanged() {
             if (Pipewire.isOpen)
                 return;
-            Global.brightnessContextVisibility = true;
+            AppState.brightnessContextVisibility = true;
             delayTimer.stop();
             root.delay(1500, () => {
-                Global.brightnessContextVisibility = false;
+                AppState.brightnessContextVisibility = false;
             });
         }
 
@@ -51,7 +50,7 @@ Item {
     anchors.bottomMargin: 150
 
     Loader {
-        active: Global.volumeContextVisibility
+        active: AppState.volumeContextVisibility
         anchors.fill: parent
 
         sourceComponent: Item {
@@ -64,13 +63,12 @@ Item {
                 animationSpeed: root.animationSpeed
                 percentage: root.volume
                 icon: Pipewire.icon
-                colors: root.colors
             }
         }
     }
 
     Loader {
-        active: Global.brightnessContextVisibility && Brightness.max > 0
+        active: AppState.brightnessContextVisibility && Brightness.max > 0
         anchors.fill: parent
 
         sourceComponent: Item {
@@ -83,7 +81,6 @@ Item {
                 animationSpeed: root.animationSpeed
                 percentage: root.brightness / 100
                 icon: Brightness.icon
-                colors: root.colors
             }
         }
     }

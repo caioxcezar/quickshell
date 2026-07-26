@@ -3,39 +3,21 @@ import QtQuick
 import Quickshell
 
 Singleton {
-    readonly property var screens: new Object()
-
-    readonly property string fontLight: "#1d1d1d"
-    readonly property string backgroundLight: "#37ffffff"
-    readonly property string surfaceLight: "#f1f1f1"
-    readonly property string errorLight: "#ff6b6b"
-    readonly property string primaryLight: "#4c4c4c"
-    readonly property string secundaryLight: "#000000"
-
-    readonly property string fontDark: "#eff0f1"
-    readonly property string backgroundDark: "#a01d1d1d"
-    readonly property string surfaceDark: "#000000"
-    readonly property string errorDark: "#ff6b6b"
-    readonly property string primaryDark: "#4c4c4c"
-    readonly property string secundaryDark: "#000000"
-
-    function getColorsByScreen(screen) {
-        return getColorsByTheme(screens[screen]);
-    }
-
-    function getColorsByTheme(theme) {
-        return theme === "dark" ? {
-            "font": fontDark,
-            "background": backgroundDark,
-            "surface": surfaceDark,
-            "error": errorDark,
-            "primary": primaryDark
-        } : {
-            "font": fontLight,
-            "background": backgroundLight,
-            "surface": surfaceLight,
-            "error": errorLight,
-            "primary": primaryLight
-        };
-    }
+    readonly property string primary: "#3584e4"
+    readonly property string primaryText: "#ffffff"
+    readonly property string secondary: "#1b467c"
+    readonly property string secondaryText: "#ffffff"
+    readonly property string tertiary: "#ffffff"
+    readonly property string tertiaryText: "#2e3436"
+    readonly property string error: "#c01c28"
+    readonly property string errorText: "#ffffff"
+    readonly property string surface: "#242424"
+    readonly property string surfaceText: "#ffffff"
+    readonly property string hover: "#3584e4"
+    readonly property string hoverText: "#ffffff"
+    readonly property string surfaceVariant: "#1e1e1e"
+    readonly property string surfaceVariantText: "#ffffff"
+    readonly property string outline: "#3d3846"
+    readonly property string shadow: "#000000"
+    readonly property string background: '#4a242424'
 }

@@ -14,7 +14,6 @@ PanelWindow {
     visible: true
     exclusiveZone: -1
     color: "transparent"
-    property var colors: Colors.getColorsByScreen(root.screen.name)
 
     anchors {
         top: true
@@ -25,7 +24,7 @@ PanelWindow {
 
     Rectangle {
         anchors.fill: parent
-        color: root.colors.background
+        color: Colors.surface
 
         ColumnLayout {
             width: tray.width
@@ -39,20 +38,20 @@ PanelWindow {
             RightBar {
                 id: tray
                 window: root
-                height: Global.height
+                height: Styles.height
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             }
 
             Column {
                 id: powerMenu
-                opacity: Global.powerVisibility && Idle.isLocked ? 1 : 0
+                opacity: AppState.powerVisibility && Idle.isLocked ? 1 : 0
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 spacing: 10
 
                 Repeater {
                     width: parent.width
-                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
+                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == AppState.compositor)
 
                     Column {
                         id: item
@@ -61,8 +60,8 @@ PanelWindow {
                         Text {
                             anchors.horizontalCenter: parent.horizontalCenter
                             text: item.modelData.title
-                            color: root.colors.font
-                            font.pointSize: Global.fontTitle
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontTitle
                             font.bold: true
                         }
                         Icon {
@@ -92,7 +91,7 @@ PanelWindow {
 
                 Behavior on opacity {
                     NumberAnimation {
-                        duration: Global.animationSpeed
+                        duration: Styles.animationSpeed
                     }
                 }
             }
@@ -105,8 +104,6 @@ PanelWindow {
             anchors.bottom: parent.bottom
 
             PlayerList {
-                colors: root.colors
-
                 verticalLayoutDirection: ListView.BottomToTop
 
                 header: Item {
@@ -131,16 +128,16 @@ PanelWindow {
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: Time.time
-                        color: root.colors.font
-                        font.pointSize: Global.fontTitle
+                        color: Colors.primaryText
+                        font.pointSize: Styles.fontTitle
                         font.bold: true
                     }
 
                     Text {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: "Screen Locked"
-                        color: root.colors.font
-                        font.pointSize: Global.fontTitle
+                        color: Colors.primaryText
+                        font.pointSize: Styles.fontTitle
                         font.bold: true
                     }
 
@@ -151,12 +148,12 @@ PanelWindow {
                         width: 300
                         height: 40
                         placeholderText: "Enter password..."
-                        placeholderTextColor: root.colors.font
+                        placeholderTextColor: Colors.primaryText
                         echoMode: TextInput.Password
-                        color: root.colors.font
+                        color: Colors.primaryText
 
                         background: Rectangle {
-                            color: root.colors.surface
+                            color: Colors.surfaceVariant
                             radius: 8
                         }
                     }

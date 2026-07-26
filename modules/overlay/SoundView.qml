@@ -11,7 +11,6 @@ Item {
 
     property bool contentActive: false
     required property int animationSpeed
-    required property var colors
 
     visible: false
     implicitWidth: 0
@@ -19,7 +18,7 @@ Item {
 
     anchors.right: parent.right
     anchors.top: parent.top
-    anchors.topMargin: Global.marginBar
+    anchors.topMargin: Styles.margin
 
     Component.onCompleted: {
         Pipewire.modal = root;
@@ -51,9 +50,9 @@ Item {
     Rectangle {
         anchors.fill: parent
         clip: true
-        color: root.colors.background
-        topLeftRadius: Global.defaultRadius
-        bottomLeftRadius: Global.defaultRadius
+        color: Colors.surface
+        topLeftRadius: Styles.defaultRadius
+        bottomLeftRadius: Styles.defaultRadius
 
         Loader {
             active: root.contentActive
@@ -67,10 +66,10 @@ Item {
                 spacing: 4
 
                 Rectangle {
-                    color: root.colors.surface
+                    color: Colors.surfaceVariant
                     Layout.fillWidth: true
                     height: outputDefault.height + 10
-                    radius: Global.defaultRadius
+                    radius: Styles.defaultRadius
 
                     Column {
                         id: outputDefault
@@ -80,8 +79,8 @@ Item {
                         Text {
                             text: "Device"
                             anchors.horizontalCenter: parent.horizontalCenter
-                            color: root.colors.font
-                            font.pointSize: Global.fontSize
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontSize
                             font.bold: true
                         }
 
@@ -94,12 +93,13 @@ Item {
                             textRole: "description"
                             onActivated: Pipewire.setOutput(currentValue)
                             background: Rectangle {
-                                color: "transparent"
+                                color: Colors.surface
+                                radius: Styles.defaultRadius
                             }
                             contentItem: Text {
-                                text: control.displayText
+                                text: ` ${control.displayText}`
                                 font: control.font
-                                color: root.colors.font
+                                color: Colors.surfaceText
                                 verticalAlignment: Text.AlignVCenter
                                 elide: Text.ElideRight
                             }
@@ -118,7 +118,7 @@ Item {
                                     context.lineTo(width, 0);
                                     context.lineTo(width / 2, height);
                                     context.closePath();
-                                    context.fillStyle = root.colors.font;
+                                    context.fillStyle = Colors.primaryText;
                                     context.fill();
                                 }
                             }
@@ -138,8 +138,8 @@ Item {
                                 }
 
                                 background: Rectangle {
-                                    radius: Global.defaultRadius
-                                    color: root.colors.surface
+                                    radius: Styles.defaultRadius
+                                    color: Colors.primary
                                 }
                             }
 
@@ -151,13 +151,13 @@ Item {
                                 highlighted: control.highlightedIndex === index
                                 contentItem: Text {
                                     text: itemDelegate.modelData.description
-                                    color: itemDelegate.modelData === control.currentValue ? root.colors.error : root.colors.font
-                                    font.bold: itemDelegate.highlighted
+                                    color: itemDelegate.highlighted ? Colors.secondaryText : Colors.primaryText
+                                    font.bold: itemDelegate.modelData === control.currentValue
                                     verticalAlignment: Text.AlignVCenter
                                 }
                                 background: Rectangle {
-                                    color: itemDelegate.highlighted ? root.colors.surface : "transparent"
-                                    radius: Global.defaultRadius
+                                    color: itemDelegate.highlighted ? Colors.secondary : Colors.primary
+                                    radius: Styles.defaultRadius
                                 }
                             }
                         }
@@ -172,7 +172,7 @@ Item {
                                     source: Pipewire.icon
                                     width: 24
                                     height: 24
-                                    iconColor: root.colors.font
+                                    iconColor: Colors.primaryText
 
                                     TapHandler {
                                         acceptedButtons: Qt.LeftButton
@@ -188,22 +188,22 @@ Item {
                                     Rectangle {
                                         anchors.horizontalCenter: parent.horizontalCenter
                                         width: parent.width - 10
-                                        color: root.colors.primary
+                                        color: Colors.primary
                                         height: 10
-                                        radius: Global.defaultRadius
+                                        radius: Styles.defaultRadius
                                         anchors.verticalCenter: parent.verticalCenter
 
                                         Rectangle {
                                             width: parent.width * Pipewire.output.audio.volume
-                                            color: root.colors.font
+                                            color: Colors.primaryText
                                             height: 10
-                                            radius: Global.defaultRadius
+                                            radius: Styles.defaultRadius
                                             anchors.left: parent.left
                                             anchors.verticalCenter: parent.verticalCenter
 
                                             Behavior on width {
                                                 NumberAnimation {
-                                                    duration: Global.animationSpeed / 2
+                                                    duration: Styles.animationSpeed / 2
                                                 }
                                             }
                                         }
@@ -223,12 +223,12 @@ Item {
                 }
 
                 Rectangle {
-                    color: root.colors.surface
+                    color: Colors.surfaceVariant
 
                     Layout.fillWidth: true
                     Layout.fillHeight: true
 
-                    radius: Global.defaultRadius
+                    radius: Styles.defaultRadius
 
                     ColumnLayout {
                         width: parent.width - 10
@@ -239,8 +239,8 @@ Item {
                             text: "Applications"
                             Layout.alignment: Qt.AlignHCenter
 
-                            color: root.colors.font
-                            font.pointSize: Global.fontSize
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontSize
                             font.bold: true
                         }
 
@@ -263,8 +263,8 @@ Item {
                                 Text {
                                     text: item.name
                                     anchors.horizontalCenter: parent.horizontalCenter
-                                    color: root.colors.font
-                                    font.pointSize: Global.fontSmall
+                                    color: Colors.primaryText
+                                    font.pointSize: Styles.fontSmall
                                 }
 
                                 Row {
@@ -282,7 +282,7 @@ Item {
                                     IconColored {
                                         id: soundIcon
                                         source: Pipewire.getVolumeIcon(item.modelData.audio.volume, item.modelData.audio.muted)
-                                        iconColor: root.colors.font
+                                        iconColor: Colors.primaryText
                                         width: 24
                                         height: 24
 
@@ -300,22 +300,22 @@ Item {
                                         Rectangle {
                                             anchors.horizontalCenter: parent.horizontalCenter
                                             width: parent.width - 10
-                                            color: root.colors.primary
+                                            color: Colors.primary
                                             height: 10
-                                            radius: Global.defaultRadius
+                                            radius: Styles.defaultRadius
                                             anchors.verticalCenter: parent.verticalCenter
 
                                             Rectangle {
                                                 width: parent.width * item.modelData.audio.volume
-                                                color: root.colors.font
+                                                color: Colors.primaryText
                                                 height: 10
-                                                radius: Global.defaultRadius
+                                                radius: Styles.defaultRadius
                                                 anchors.left: parent.left
                                                 anchors.verticalCenter: parent.verticalCenter
 
                                                 Behavior on width {
                                                     NumberAnimation {
-                                                        duration: Global.animationSpeed / 2
+                                                        duration: Styles.animationSpeed / 2
                                                     }
                                                 }
                                             }

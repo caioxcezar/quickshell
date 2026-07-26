@@ -8,7 +8,6 @@ Item {
     id: root
 
     required property int animationSpeed
-    required property var colors
     property bool contentActive: false
     visible: false
 
@@ -44,10 +43,10 @@ Item {
     }
 
     Rectangle {
-        color: root.colors.background
+        color: Colors.surface
         anchors.fill: parent
-        bottomRightRadius: Global.defaultRadius
-        bottomLeftRadius: Global.defaultRadius
+        bottomRightRadius: Styles.defaultRadius
+        bottomLeftRadius: Styles.defaultRadius
 
         Loader {
             active: root.contentActive
@@ -71,8 +70,8 @@ Item {
 
                             Rectangle {
                                 anchors.fill: parent
-                                radius: Global.defaultRadius
-                                color: root.colors.surface
+                                radius: Styles.defaultRadius
+                                color: Colors.surfaceVariant
                                 clip: true
                                 anchors.topMargin: 5
                                 anchors.leftMargin: 5
@@ -80,8 +79,6 @@ Item {
                                 CalendarView {
                                     anchors.margins: 5
                                     anchors.fill: parent
-
-                                    colors: root.colors
                                 }
                             }
                         }
@@ -91,15 +88,14 @@ Item {
                             Layout.preferredHeight: weatherView.implicitHeight + 15
                             Rectangle {
                                 anchors.fill: parent
-                                radius: Global.defaultRadius
-                                color: root.colors.surface
+                                radius: Styles.defaultRadius
+                                color: Colors.surfaceVariant
                                 clip: true
                                 anchors.bottomMargin: 5
                                 anchors.leftMargin: 5
 
                                 WeatherView {
                                     id: weatherView
-                                    colors: root.colors
                                     anchors.margins: 5
                                     anchors.fill: parent
                                 }
@@ -113,8 +109,6 @@ Item {
                     Layout.fillHeight: true
 
                     NotificationsList {
-                        colors: root.colors
-
                         anchors.fill: parent
                         anchors.topMargin: 5
                         anchors.bottomMargin: 5

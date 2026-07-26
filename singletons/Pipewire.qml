@@ -25,15 +25,15 @@ Singleton {
     function getVolumeIcon(volume, isMuted) {
         let icon = "";
         if (isMuted)
-            icon = "audio-volume-muted-symbolic";
+            icon = "audio-volume-muted";
         else if (volume < 0.34)
-            icon = "audio-volume-low-symbolic";
+            icon = "audio-volume-low";
         else if (volume < 0.64)
-            icon = "audio-volume-medium-symbolic";
+            icon = "audio-volume-medium";
         else
-            icon = "audio-volume-high-symbolic";
+            icon = "audio-volume-high";
 
-        return Global.getIcon(icon);
+        return Quickshell.iconPath(icon, true);
     }
 
     function setOutput(node) {

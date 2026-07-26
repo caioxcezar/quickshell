@@ -13,10 +13,9 @@ Scope {
             id: root
 
             required property var modelData
-            property var colors: Colors.getColorsByScreen(modelData.name)
 
-            visible: Global.powerVisibility && !Idle.isLocked
-            color: root.colors.background
+            visible: AppState.powerVisibility && !Idle.isLocked
+            color: Colors.background
             screen: modelData
             exclusiveZone: -1
 
@@ -30,41 +29,36 @@ Scope {
             TapHandler {
                 acceptedButtons: Qt.LeftButton
                 onTapped: {
-                    Global.powerVisibility = false;
+                    AppState.powerVisibility = false;
                 }
             }
 
-            Rectangle {
-                color: root.colors.surface
+            Row {
+                id: row
+                spacing: Styles.margin
                 anchors.centerIn: parent
-                width: row.width + 50
-                height: row.height + 25
-                radius: Global.defaultRadius
 
-                Row {
-                    id: row
-                    spacing: 64
-                    anchors.centerIn: parent
+                Repeater {
+                    model: Global.powerCommands.filter(cm => !cm.for || cm.for == AppState.compositor)
 
-                    Repeater {
-                        model: Global.powerCommands.filter(cm => !cm.for || cm.for == Global.compositor)
+                    Rectangle {
+                        id: item
+                        required property var modelData
+
+                        color: Colors.surface
+                        width: 200
+                        height: 200
+                        radius: Styles.defaultRadius
 
                         Column {
-                            id: item
-                            required property var modelData
-                            Text {
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                text: item.modelData.title
-                                color: root.colors.font
-                                font.pointSize: Global.fontTitle
-                                font.bold: true
-                            }
+                            anchors.fill: parent
+
                             Icon {
                                 anchors.horizontalCenter: parent.horizontalCenter
 
                                 source: Global.getIcon(item.modelData.icon)
-                                width: 96
-                                height: 96
+                                width: 150
+                                height: 150
 
                                 TapHandler {
                                     acceptedButtons: Qt.LeftButton
@@ -79,6 +73,14 @@ Scope {
                                     running: false
                                     command: item.modelData.command
                                 }
+                            }
+
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: item.modelData.title
+                                color: Colors.primaryText
+                                font.pointSize: Styles.fontTitle
+                                font.bold: true
                             }
                         }
                     }
