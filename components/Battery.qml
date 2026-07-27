@@ -22,9 +22,10 @@ Item {
         sourceComponent: Row {
             id: row
 
-            property real percentage: root.device.percentage
+            property var percentage: (root.device.percentage * 100).toFixed(0)
             property string icon: {
-                const level = Math.ceil(row.percentage * 10) * 10;
+                const percentage = root.device.percentage;
+                const level = Math.ceil(percentage * 10) * 10;
                 const isCharging = root.device.state == UPowerDeviceState.Charging;
 
                 if (level === 100)
@@ -44,10 +45,11 @@ Item {
             }
 
             Text {
-                text: `${(row.percentage * 100).toFixed(0)}%`
+                text: `${row.percentage}%`
                 color: root.iconColor
                 anchors.verticalCenter: parent.verticalCenter
                 font.pointSize: Styles.fontSize
+                visible: row.percentage != 100
             }
         }
     }
