@@ -23,8 +23,15 @@ Item {
             id: row
 
             property real percentage: root.device.percentage
-            property int iconLevel: Math.ceil(row.percentage * 10) * 10
-            property string iconState: root.device.state == UPowerDeviceState.Charging && iconLevel != 100 ? "-charging-" : "-"
+            property string icon: {
+                const level = Math.ceil(row.percentage * 10) * 10;
+                const isCharging = root.device.state == UPowerDeviceState.Charging;
+
+                if (level === 100)
+                    return isCharging ? "battery-charged" : "battery-full";
+
+                return `battery-0${level}${isCharging ? "-charging" : ""}`;
+            }
 
             spacing: 2
 
@@ -32,7 +39,7 @@ Item {
                 id: image
 
                 anchors.verticalCenter: parent.verticalCenter
-                source: Global.getIcon(`battery-level-${row.iconLevel}${row.iconState}symbolic`)
+                source: Global.getIcon(row.icon)
                 iconColor: root.iconColor
             }
 
