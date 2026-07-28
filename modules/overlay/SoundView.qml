@@ -260,17 +260,11 @@ Item {
                                 property string binary: (item.modelData?.properties?.["application.process.binary"] || "")
                                 property string name: (item.modelData.name || "")
 
-                                Text {
-                                    text: item.name
-                                    anchors.horizontalCenter: parent.horizontalCenter
-                                    color: Colors.primaryText
-                                    font.pointSize: Styles.fontSmall
-                                }
-
+                               
                                 Row {
-
                                     width: parent.width
-
+                                    height: appIcon.height
+                        
                                     Icon {
                                         id: appIcon
                                         source: Global.getIcon(item.iconName || item.name || item.binary, true)
@@ -278,6 +272,20 @@ Item {
                                         height: 24
                                         visible: status === Image.Ready
                                     }
+                                    Text {
+                                        id: name
+                                        text: item.name
+                                        color: Colors.primaryText
+                                        font.pointSize: Styles.fontSmall
+
+                                        anchors.centerIn: parent
+                                    }
+                                }
+                                
+
+                                Row {
+
+                                    width: parent.width
 
                                     IconColored {
                                         id: soundIcon
@@ -295,7 +303,7 @@ Item {
                                     }
 
                                     Item {
-                                        width: parent.width - soundIcon.width - (appIcon.visible ? appIcon.width : 0)
+                                        width: parent.width - soundIcon.width
                                         height: parent.height
                                         Rectangle {
                                             anchors.horizontalCenter: parent.horizontalCenter
