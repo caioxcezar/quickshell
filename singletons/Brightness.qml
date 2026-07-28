@@ -26,7 +26,7 @@ Singleton {
     }
 
     property var icon: {
-        let icon = ["brightness"];
+        let icon = ["display-brightness"];
 
         if (percentage < 33)
             icon.push("low");
@@ -69,10 +69,11 @@ Singleton {
 
         command: ["sh", "-c", `
             brightnessctl --version >/dev/null 2>&1 &&
-            brightnessctl set ${root.percentage}%`]
+            brightnessctl set ${root.percentage}% &&
+            brightnessctl get`]
 
         stdout: StdioCollector {
-            onStreamFinished: root.getText(this.text, text => root.percentage = Number(text))
+            onStreamFinished: root.getText(this.text, text => root.percentage = root.getPercentage(text))
         }
     }
 
@@ -80,7 +81,8 @@ Singleton {
         id: processGetBrightness
 
         command: ["sh", "-c", `
-            brightnessctl --version >/dev/null 2>&1 && sleep 0.1 &&
+            brightnessctl --version >/dev/null 2>&1 &&
+            sleep 0.1 &&
             brightnessctl get`]
         running: true
 
@@ -101,7 +103,7 @@ Singleton {
         stdout: StdioCollector {
             onStreamFinished: root.getText(this.text, text => {
                 const [before, after] = this.text.split('\n');
-                root._idleBkpValue = Number(before);
+                root._idleBkpValue = getPercentage(before);
                 root.percentage = getPercentage(after);
             })
         }
