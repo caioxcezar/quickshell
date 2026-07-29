@@ -44,7 +44,7 @@ Item {
         target: root
     }
 
-    implicitHeight: 50
+    implicitHeight: 200
     anchors.horizontalCenter: parent.horizontalCenter
     anchors.bottom: parent.bottom
     anchors.bottomMargin: 150

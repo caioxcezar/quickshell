@@ -8,7 +8,7 @@ Rectangle {
     required property var percentage
     required property var animationSpeed
     required property var icon
-    color: Colors.surfaceVariant
+    color: Colors.surface
     radius: Styles.defaultRadius
 
     width: 200
