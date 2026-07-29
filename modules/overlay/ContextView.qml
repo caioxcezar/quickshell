@@ -49,38 +49,44 @@ Item {
     anchors.bottom: parent.bottom
     anchors.bottomMargin: 150
 
-    Loader {
-        active: AppState.volumeContextVisibility
-        anchors.fill: parent
+    Row {
+        anchors.centerIn: parent
+        spacing: Styles.margin
+        Loader {
+            active: AppState.volumeContextVisibility
+            width: active ? 200 : 0
+            height: active ? 200 : 0
 
-        sourceComponent: Item {
-            anchors {
-                fill: parent
-                centerIn: parent
-            }
+            sourceComponent: Item {
+                anchors {
+                    fill: parent
+                    centerIn: parent
+                }
 
-            PercentageView {
-                animationSpeed: root.animationSpeed
-                percentage: root.volume
-                icon: Pipewire.icon
+                PercentageView {
+                    animationSpeed: root.animationSpeed
+                    percentage: root.volume
+                    icon: Pipewire.icon
+                }
             }
         }
-    }
 
-    Loader {
-        active: AppState.brightnessContextVisibility && Brightness.max > 0
-        anchors.fill: parent
+        Loader {
+            active: AppState.brightnessContextVisibility && Brightness.max > 0
+            width: active ? 200 : 0
+            height: active ? 200 : 0
 
-        sourceComponent: Item {
-            anchors {
-                fill: parent
-                centerIn: parent
-            }
+            sourceComponent: Item {
+                anchors {
+                    fill: parent
+                    centerIn: parent
+                }
 
-            PercentageView {
-                animationSpeed: root.animationSpeed
-                percentage: root.brightness / 100
-                icon: Brightness.icon
+                PercentageView {
+                    animationSpeed: root.animationSpeed
+                    percentage: root.brightness / 100
+                    icon: Brightness.icon
+                }
             }
         }
     }
