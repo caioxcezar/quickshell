@@ -11,7 +11,7 @@ Singleton {
     readonly property string tertiaryText: "#2e3436"
     readonly property string error: "#c01c28"
     readonly property string errorText: "#ffffff"
-    readonly property string surface: "#242424"
+    readonly property string surface: '#d1242424'
     readonly property string surfaceText: "#ffffff"
     readonly property string hover: "#3584e4"
     readonly property string hoverText: "#ffffff"

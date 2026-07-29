@@ -82,6 +82,13 @@ Item {
                                 layer.effect: ColorOverlay {
                                     color: '#c4ff6b6b'
                                 }
+
+                                Connections {
+                                    function onUrgentChanged() {
+                                        if (modelData.urgent) Hypr.goToWorspace(modelData.workspace.id)
+                                    }
+                                    target: modelData
+                                }
                             }
                         }
                     }
