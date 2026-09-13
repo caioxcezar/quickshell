@@ -5,7 +5,6 @@ import QtQuick.Layouts
 import qs.components
 import qs.singletons
 
-// qmllint disable uncreatable-type
 Item {
     id: root
 

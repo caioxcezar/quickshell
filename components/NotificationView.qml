@@ -60,6 +60,14 @@ Column {
             visible: status === Image.Ready
         }
 
+        Text {
+            text: root.notification.appName
+            anchors.verticalCenter: parent.verticalCenter
+            font.pointSize: Styles.fontSmall
+            color: root.fontColor
+            visible: notifIcon.status !== Image.Ready
+        }
+
         IconRounded {
             id: closeIcon
 

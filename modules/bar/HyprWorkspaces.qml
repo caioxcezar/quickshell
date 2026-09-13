@@ -45,7 +45,8 @@ Item {
                             pid,
                             title
                         } = toplevel.lastIpcObject;
-                        return !title || map.has(pid) ? false : map.add(pid);
+                        if (!title || title?.includes("notificationtoasts_") || map.has(pid)) return false;
+                        return map.add(pid);
                     });
 
                     return toplevels;

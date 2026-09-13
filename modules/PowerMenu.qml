@@ -60,13 +60,6 @@ Scope {
                                 width: 150
                                 height: 150
 
-                                TapHandler {
-                                    acceptedButtons: Qt.LeftButton
-                                    onTapped: {
-                                        process.running = true;
-                                    }
-                                }
-
                                 Process {
                                     id: process
 
@@ -81,6 +74,13 @@ Scope {
                                 color: Colors.primaryText
                                 font.pointSize: Styles.fontTitle
                                 font.bold: true
+                            }
+
+                            TapHandler {
+                                acceptedButtons: Qt.LeftButton
+                                onTapped: {
+                                    process.running = true;
+                                }
                             }
                         }
                     }
