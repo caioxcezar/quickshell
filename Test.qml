@@ -121,40 +121,48 @@ PanelWindow {
                     animationSpeed: 200
                 }
 
-                readonly property Component input: Column {
+                readonly property Component input: Rectangle {
                     anchors.centerIn: parent
-                    spacing: 16
+                    color: Colors.surfaceVariant
+                    radius: Styles.defaultRadius
+                    width: content.width + 50
+                    height: content.height + 50
+                    Column {
+                        id: content
+                        spacing: 16
+                        anchors.centerIn: parent
 
-                    Text {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: Time.time
-                        color: Colors.primaryText
-                        font.pointSize: Styles.fontTitle
-                        font.bold: true
-                    }
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            text: Time.time
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontTitle
+                            font.bold: true
+                        }
 
-                    Text {
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        text: "Screen Locked"
-                        color: Colors.primaryText
-                        font.pointSize: Styles.fontTitle
-                        font.bold: true
-                    }
+                        Text {
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            text: "Screen Locked"
+                            color: Colors.primaryText
+                            font.pointSize: Styles.fontTitle
+                            font.bold: true
+                        }
 
-                    TextField {
-                        id: passwordField
+                        TextField {
+                            id: passwordField
 
-                        anchors.horizontalCenter: parent.horizontalCenter
-                        width: 300
-                        height: 40
-                        placeholderText: "Enter password..."
-                        placeholderTextColor: Colors.primaryText
-                        echoMode: TextInput.Password
-                        color: Colors.primaryText
+                            anchors.horizontalCenter: parent.horizontalCenter
+                            width: 300
+                            height: 40
+                            placeholderText: "Enter password..."
+                            placeholderTextColor: Colors.primaryText
+                            echoMode: TextInput.Password
+                            color: Colors.primaryText
 
-                        background: Rectangle {
-                            color: Colors.surfaceVariant
-                            radius: 8
+                            background: Rectangle {
+                                color: Colors.surface
+                                radius: 8
+                            }
                         }
                     }
                 }

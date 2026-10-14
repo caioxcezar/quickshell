@@ -184,66 +184,74 @@ ShellRoot {
                         animationSpeed: 200
                     }
 
-                    readonly property Component input: Column {
+                    readonly property Component input: Rectangle {
                         anchors.centerIn: parent
-                        spacing: 16
+                        color: Colors.surfaceVariant
+                        radius: Styles.defaultRadius
+                        width: content.width + 50
+                        height: content.height + 50
+                        Column {
+                            id: content
+                            spacing: 16
+                            anchors.centerIn: parent
 
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: Time.time
-                            color: Colors.primaryText
-                            font.pointSize: Styles.fontTitle
-                            font.bold: true
-                        }
-
-                        Text {
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Screen Locked"
-                            color: Colors.primaryText
-                            font.pointSize: Styles.fontTitle
-                            font.bold: true
-                        }
-
-                        TextField {
-                            id: passwordField
-
-                            text: pam.secret
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            width: 300
-                            height: 40
-                            placeholderText: "Enter password..."
-                            placeholderTextColor: Colors.primaryText
-                            echoMode: TextInput.Password
-                            color: Colors.primaryText
-                            Keys.onReturnPressed: {
-                                pam.user = Qt.binding(() => {
-                                    return Quickshell.env("USER");
-                                });
-                                pam.start();
-                            }
-                            onTextChanged: {
-                                pam.secret = passwordField.text;
-                            }
-                            Component.onCompleted: {
-                                passwordField.text = "";
-                                pam.secret = "";
-                                passwordField.forceActiveFocus();
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: Time.time
+                                color: Colors.primaryText
+                                font.pointSize: Styles.fontTitle
+                                font.bold: true
                             }
 
-                            background: Rectangle {
-                                color: Colors.surfaceVariant
-                                radius: 8
+                            Text {
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: "Screen Locked"
+                                color: Colors.primaryText
+                                font.pointSize: Styles.fontTitle
+                                font.bold: true
                             }
-                        }
 
-                        Text {
-                            id: errorText
+                            TextField {
+                                id: passwordField
 
-                            anchors.horizontalCenter: parent.horizontalCenter
-                            text: "Incorrect password"
-                            color: Colors.error
-                            font.pointSize: Styles.fontSubtitle
-                            visible: pam.error
+                                text: pam.secret
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                width: 300
+                                height: 40
+                                placeholderText: "Enter password..."
+                                placeholderTextColor: Colors.primaryText
+                                echoMode: TextInput.Password
+                                color: Colors.primaryText
+                                Keys.onReturnPressed: {
+                                    pam.user = Qt.binding(() => {
+                                        return Quickshell.env("USER");
+                                    });
+                                    pam.start();
+                                }
+                                onTextChanged: {
+                                    pam.secret = passwordField.text;
+                                }
+                                Component.onCompleted: {
+                                    passwordField.text = "";
+                                    pam.secret = "";
+                                    passwordField.forceActiveFocus();
+                                }
+
+                                background: Rectangle {
+                                    color: Colors.surface
+                                    radius: 8
+                                }
+                            }
+
+                            Text {
+                                id: errorText
+
+                                anchors.horizontalCenter: parent.horizontalCenter
+                                text: "Incorrect password"
+                                color: Colors.error
+                                font.pointSize: Styles.fontSubtitle
+                                visible: pam.error
+                            }
                         }
                     }
 
